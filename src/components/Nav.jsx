@@ -1,4 +1,4 @@
-import { navLinks } from "../assets/constants";
+import { navLinks } from "../constants";
 
 const Nav = () => {
   return (

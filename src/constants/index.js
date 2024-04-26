@@ -1,5 +1,4 @@
-/*import { facebook, instagram, shieldTick, support, truckFast, twitter } from "../assets/icons";
-import { bigShoe1, bigShoe2, bigShoe3, customer1, customer2, shoe4, shoe5, shoe6, shoe7, thumbnailShoe1, thumbnailShoe2, thumbnailShoe3 } from "../assets/images"; */
+/*import { facebook, instagram, support, twitter } from "../assets/icons";*/
 
 export const navLinks = [
     { href: "#home", label: "Home" },
@@ -9,6 +8,21 @@ export const navLinks = [
     { href: "#FirstTimers", label: "First Timers" },
     { href: "#Contact", label: "Contact Us" }, /*add a contact Section*/
 ];
+
+export const tabInfo = {
+    whoWeAre: {
+        title: "Who We Are",
+        content: "Welcome to JPF Stretch HUB, Nairobi's premier destination for professional assisted stretching. Whether you're an athlete looking to boost performance, someone struggling with chronic pain, or just looking to improve your overall flexibility, our expert stretch therapists are here to help you achieve your goals."
+    },
+    whyStretch: {
+        title: "Why Stretch?",
+        content: "Stretching helps increase your range of motion and may improve your performance in physical activities or decrease your risk of injuries. It can also help to heal and prevent back pain."
+    },
+    benefits: {
+        title: "Benefits",
+        content: "Regular stretching can help increase your flexibility, which is crucial for your overall health. Not only can improved flexibility help you to perform everyday activities with relative ease, but it can also help delay the reduced mobility that can come with aging."
+    }
+};
 
 /*
 Can be used to include items to be sold to site visitors, Protein shakes,power bars, water bottles, laptop stands.
