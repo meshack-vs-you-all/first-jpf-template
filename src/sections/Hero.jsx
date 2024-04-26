@@ -27,7 +27,7 @@ const Hero = () => {
         <div className="absolute bottom-0 left-0 right-0 bg-brand-blue h-20 flex items-center justify-center w-full">
           <a 
             href="#"
-            className="text-white text-xl font-montserrat leading-none tracking-wide whitespace-nowrap px-5"
+            className="text-white text-xl font-montserrat leading-none tracking-wide px-5"
           >
             First Timers 50-minute Intro Stretch starting at $30 (Ksh. 3,900)
           </a>

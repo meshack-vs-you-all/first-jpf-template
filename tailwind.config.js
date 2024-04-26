@@ -40,6 +40,7 @@ export default {
     extend: {
       backgroundImage: {
         'hero': "url('/src/assets/images/assisted-stretch-chill.jpg')",
+        'hero_opacity': "#222222 opacity(70%)"
       },
       fontFamily: {
         montserrat: ['Montserrat', 'sans-serif'], // Primary sans-serif font

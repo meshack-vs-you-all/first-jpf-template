@@ -3,8 +3,8 @@ import Nav from './components/Nav'
 const App = () => (
   <main className="relative w-full h-screen ">{/**I changed the padding to 20px all around and the margin right to 0 */}
     <Nav /> 
-    <section className=""><Hero /></section>
-    <section className='padding'><WhoWeAre /></section>
+    <section ><Hero /></section>
+    <section className="bg- w-full h-screen flex flex-col lg:flex-row gap-10 p-5"><WhoWeAre /></section>
     <section className='padding-x py-10'><WhatWeOffer /></section>
     <section className='padding'><FirstTimers /></section>
     <section className='padding'><Benefits /></section>
