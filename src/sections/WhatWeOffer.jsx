@@ -3,26 +3,26 @@ const services = [
         id: 1,
         name: 'Personalized Stretching',
         description: 'Tailored stretching sessions to improve flexibility, reduce pain, and enhance performance. This comprehensive approach helps athletes boost performance through targeted sports stretching and offers engaging group sessions.',
-        image: '/path-to-your-image.jpg' // Update with actual image path
+        image: '/src/assets/images/stretch-hub-female.jpg' // Update with actual image path
     },
     {
         id: 2,
         name: 'Corrective Exercises',
         description: 'Corrective exercises leverage an understanding of anatomy, kinesiology, and biomechanics to address and correct movement compensations and imbalances. This method improves the overall quality of movement in everyday life and prevents future injuries.',
-        image: '/path-to-your-image2.jpg' // Update with actual image path
+        image: '/src/assets/images/stretch-hub-female.jpg' // Update with actual image path
     },
     {
         id: 3,
         name: 'Energy-based Spin Classes',
         description: 'Our energy-based spin classes focus on boosting cardiovascular health while dramatically increasing endurance. These sessions are perfect for anyone looking to energize their workout routine in a dynamic group setting.',
-        image: '/path-to-your-image3.jpg' // Update with actual image path
+        image: '/src/assets/images/stretch-hub-female.jpg' // Update with actual image path
     }
 ];
 
 
 const WhatWeOffer = () => {
     return (
-        <div className="container mx-auto px-4 py-12 h-screen">
+        <div className="container bg-light mx-auto px-4 py-12 min-h-screen">
             <h2 className="text-3xl font-bold text-center text-brand-primary mb-20">OUR STRETCH SERVICES</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                 {services.map(service => (

@@ -12,7 +12,7 @@ const WhoWeAre = () => {
                 <Tabs tabs={tabs} activeTab={activeTab} onTabClick={setActiveTab} />
                 
                 <div className="text-merriweather text-gray-600 text-lg p-8 mt-8 border-t border-gray-300">
-                    {tabInfo[activeTab].content}
+                    <p style={{ whiteSpace: "pre-wrap" }}>{tabInfo[activeTab].content}</p>
                 </div>
             </div>
 
@@ -24,6 +24,8 @@ const WhoWeAre = () => {
                 />
 
             </div>
+
+            
             
         </main>
         

@@ -19,7 +19,7 @@ export default {
       'brand-dark': '#273444', // subdued for less focus
       'brand-light': '#f9f9f9', // background or light sections
       'brand-accent': '#ffc82c', // for highlights or buttons
-      'white': '#E1E9E5',
+      'white': '#fff',
       'gray-dark': '#273444',
       'gray': '#8492a6',
       'gray-light': '#d3dce6',

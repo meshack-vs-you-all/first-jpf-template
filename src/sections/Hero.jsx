@@ -13,7 +13,7 @@ const Hero = () => {
       </video>
 
       {/* Overlay to darken the video, ensuring content is readable */}
-      <div className="absolute inset-0 bg-black bg-opacity-80"></div>
+      <div className="absolute inset-0 bg-black bg-opacity-60"></div>
 
       {/* Content container */}
       <div className='relative z-10 flex flex-col justify-center items-center w-full p-5'>
