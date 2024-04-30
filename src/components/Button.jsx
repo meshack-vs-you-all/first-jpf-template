@@ -3,7 +3,7 @@
 const Button = ({label, iconURL}) => {
   return (
     <button
-      className="flex justify-center items-center gap-2 px-7 py-4 border font-montserrat text-lg leading-none bg-brand-blue text-white border-brand-blue rounded-full w-auto"
+      className="flex justify-center items-center gap-2 px-7 py-4 border font-montserrat text-lg leading-none bg-brand-primary text-white border-brand-primary rounded-full w-auto"
     >
       {label}
 

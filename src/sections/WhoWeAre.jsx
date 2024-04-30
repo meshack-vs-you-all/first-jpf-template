@@ -7,7 +7,7 @@ const WhoWeAre = () => {
     const tabs = Object.keys(tabInfo).map(key => ({ key, title: tabInfo[key].title }));
 
     return (
-        <main className="flex flex-col lg:flex-row gap-10 p-5">
+        <main className="flex flex-col lg:flex-row gap-10 p-5 mt-[70px]">
             <div className="flex flex-col lg:w-1/2">
                 <Tabs tabs={tabs} activeTab={activeTab} onTabClick={setActiveTab} />
                 
@@ -22,8 +22,11 @@ const WhoWeAre = () => {
                     alt="Stretching session at JPF Stretch Hub"
                     className="rounded-lg shadow-lg max-w-full h-auto align-middle border-none"
                 />
+
             </div>
+            
         </main>
+        
     );
 };
 

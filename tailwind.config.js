@@ -14,22 +14,15 @@ export default {
       '8xl': ['96px', '106px']
     },
     colors: {
-      'brand-primary': '#0fadb6', // bright for attention
-      'brand-secondary': '#ff7849', // contrast or call to action
+      'brand-primary': '#0fadb6', // bright for attention ..Use this teal color across the site for branding
+      'brand-secondary': '#0fadc7', // contrast or call to action
       'brand-dark': '#273444', // subdued for less focus
       'brand-light': '#f9f9f9', // background or light sections
       'brand-accent': '#ffc82c', // for highlights or buttons
-
-
-      'brand-blue': '#0fadb6', // Use this teal color across the site for branding
-      'purple': '#7e5bef',
-      'orange': '#ff7849',
-      'green': '#13ce66',
-      'yellow': '#ffc82c',
+      'white': '#E1E9E5',
       'gray-dark': '#273444',
       'gray': '#8492a6',
       'gray-light': '#d3dce6',
-      'white': '#fff',
       'black': '#222222',
       'transparent': 'transparent',
       'dark': '#131313',
@@ -47,7 +40,7 @@ export default {
         merriweather: ['Merriweather', 'serif'], // Secondary serif font
       },
       boxShadow: {
-        '3xl': '0 10px 40px rgba(0, 0, 0, 0.1)'
+        '3xl': '0 10px 40px rgba(0, 0, 0, 0.6)'
       },
       spacing: {
         '8xl': '96rem', // Very large spacing for extreme cases

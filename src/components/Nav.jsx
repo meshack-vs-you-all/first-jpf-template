@@ -9,14 +9,14 @@ const Nav = () => {
      </div>
 
       {/* Location Banner */}
-      <div className="bg-brand-blue text-center py-2">
+      <div className="bg-brand-primary text-center py-2">
         <a href="#" className="inline-block px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">
           GET DIRECTIONS
         </a>
       </div>
 
       {/* Navigation Bar */}
-      <header className="sticky top-0 z-50 w-full bg-white shadow">
+      <header className="sticky top-0 z-50 w-full bg-light shadow">
         <nav className="flex justify-between items-center w-full px-5 py-3">
           <a href='/'>
               <img src="/src/assets/images/jpf_logo.jpg" 
@@ -33,7 +33,7 @@ const Nav = () => {
             ))}
           </ul>
           <div className='hidden lg:flex text-lg font-medium font-montserrat mr-24'>
-            <a href='/' className="text-gray-800">Learn More</a>
+            <a href='/' className="text-gray-800">Learn More </a>
           </div>
           <div className="lg:hidden relative">
             <button className="appearance-none bg-transparent border-none cursor-pointer p-2">
