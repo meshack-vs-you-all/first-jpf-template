@@ -1,39 +1,40 @@
 const services = [
     {
         id: 1,
-        name: 'Personalized Stretching', //Sports Performance Enhance athletic performance through targeted sports stretching.Group SessionsJoin our group sessions and enjoy a fun and engaging stretch routine.
-        description: 'Tailored stretching sessions to improve flexibility, reduce pain and enhance performance.',
-        image: ''
+        name: 'Personalized Stretching',
+        description: 'Tailored stretching sessions to improve flexibility, reduce pain, and enhance performance. This comprehensive approach helps athletes boost performance through targeted sports stretching and offers engaging group sessions.',
+        image: '/path-to-your-image.jpg' // Update with actual image path
     },
     {
         id: 2,
         name: 'Corrective Exercises',
-        description: 'Levarages an understanding of anatomy, kinesiology and biomechanics to address and fix movement compensations and imbalances to improve overall quality of movement in everyday life. ',
-        image: ''
+        description: 'Corrective exercises leverage an understanding of anatomy, kinesiology, and biomechanics to address and correct movement compensations and imbalances. This method improves the overall quality of movement in everyday life and prevents future injuries.',
+        image: '/path-to-your-image2.jpg' // Update with actual image path
     },
     {
         id: 3,
-        name: 'Energy-based Spin Classes ',
-        description: 'Boosts cardiovascular health while increasing overall endurance .',
-        image: ''
+        name: 'Energy-based Spin Classes',
+        description: 'Our energy-based spin classes focus on boosting cardiovascular health while dramatically increasing endurance. These sessions are perfect for anyone looking to energize their workout routine in a dynamic group setting.',
+        image: '/path-to-your-image3.jpg' // Update with actual image path
     }
 ];
 
+
 const WhatWeOffer = () => {
     return (
-        <div className=" h-screen container mx-auto px-4 py-12 border-t-brand-dark border-t-4">
+        <div className="container mx-auto px-4 py-12 h-screen">
             <h2 className="text-3xl font-bold text-center text-brand-primary mb-20">OUR STRETCH SERVICES</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                 {services.map(service => (
-                    <div key={service.id} className="relative bg-white rounded-lg p-10  flex flex-col items-center text-left">
+                    <div key={service.id} className="bg-white rounded-lg shadow-lg flex flex-col items-center text-center p-6 transform transition-all duration-500 hover:scale-105">
+                        {/* Image fully inside the card */}
                         <img 
                             src={service.image} 
                             alt={service.name}
-                            className="w-full h-40 -mt-20 mb-4"
-                            style={{clipPath: ''}} //Add a clipPath shape for the images
+                            className="w-full h-40 object-cover rounded-lg" // Ensures the image covers the area without distorting
                         />
-                        <h3 className="text-xl font-semibold mb-2">{service.name}</h3>
-                        <p className="text-center">{service.description}</p>
+                        <h3 className="text-xl font-semibold my-4">{service.name}</h3>
+                        <p className="px-3">{service.description}</p>
                     </div>
                 ))}
             </div>
@@ -44,4 +45,4 @@ const WhatWeOffer = () => {
     );
 };
 
-export default WhatWeOffer; 
+export default WhatWeOffer;
