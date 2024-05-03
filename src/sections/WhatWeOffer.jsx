@@ -2,7 +2,7 @@ const services = [
     {
         id: 1,
         name: 'Personalized Stretching',
-        description: 'Tailored stretching sessions to improve flexibility, reduce pain, and enhance performance. This comprehensive approach helps athletes boost performance through targeted sports stretching and offers engaging group sessions.',
+        description: 'Tailored stretching sessions to improve flexibility, reduce pain, and enhance performance. \nThis comprehensive approach helps athletes boost performance through targeted sports stretching and offers engaging group sessions.',
         image: '/src/assets/images/stretch-hub-female.jpg' // Update with actual image path
     },
     {
@@ -22,9 +22,9 @@ const services = [
 
 const WhatWeOffer = () => {
     return (
-        <div className="container bg-light mx-auto px-4 py-12 min-h-screen">
-            <h2 className="text-3xl font-bold text-center text-brand-primary mb-20">OUR STRETCH SERVICES</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className=" min-h-screen">{/**bg-hero-light-mobile bg-cover lg:bg-hero-light lg:bg-cover */}
+            <h2 className="text-3xl font-bold text-center text-brand-primary mb-5">OUR STRETCH SERVICES</h2>
+            <div className="flex flex-col justify-center md:grid-cols-3 gap-10">
                 {services.map(service => (
                     <div key={service.id} className="bg-white rounded-lg shadow-lg flex flex-col items-center text-center p-6 transform transition-all duration-500 hover:scale-105">
                         {/* Image fully inside the card */}

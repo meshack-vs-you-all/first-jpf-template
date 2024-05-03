@@ -32,8 +32,10 @@ export default {
     },
     extend: {
       backgroundImage: {
-        'hero': "url('/src/assets/images/assisted-stretch-chill.jpg')",
-        'hero_opacity': "#222222 opacity(70%)"
+        'hero-dark': "url('/src/assets/images/backgrounds/desktop-dark-blob-scene.svg')",
+        'hero-light': "url('/src/assets/images/backgrounds/desktop-blob-scene.svg')",
+        'hero-dark-mobile': "url('/src/assets/images/backgrounds/mobile-dark-blob-scene.svg')",
+      'hero-light-mobile': "url('/src/assets/images/backgrounds/mobile-blob-scene.svg')",
       },
       fontFamily: {
         montserrat: ['Montserrat', 'sans-serif'], // Primary sans-serif font
@@ -50,7 +52,22 @@ export default {
         '4xl': '2rem',
       },
       screens: {
-        '3xl': '2000px', // Custom breakpoint for wide screens
+        'tablet': '640px',
+      // => @media (min-width: 640px) { ... }
+
+      'md': {'max': '767px'},
+      // => @media (max-width: 767px) { ... }
+
+      'laptop': '1024px',
+      // => @media (min-width: 1024px) { ... }
+
+      'desktop': '1280px',
+      // => @media (min-width: 1280px) { ... }
+      '2xl':'1536px',
+      // => @media (min-width: 1536px) { ... }
+
+      '3xl': '2000px', // Custom breakpoint for wide screens
+
       }
     },
   },

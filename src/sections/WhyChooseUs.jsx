@@ -18,19 +18,19 @@ const WhyChooseUs = () => {
     };
 
     return (
-        <div className="container mx-auto bg-gray-100 p-5 rounded-lg shadow text-center">
+        <div className="container p-5 rounded-lg text-center">
             <h2 className="text-2xl font-bold text-brand-primary mb-4">Why Choose JPF Stretch Hub?</h2>
             <p className="text-gray-700 mb-3">
-                At <strong>JPF Stretch Hub</strong>, we&#39;re dedicated to providing you with exceptional stretch therapy services in a welcoming and professional environment.  Here are just a few reasons why you should choose us for your stretching needs:
+                At <strong>JPF Stretch Hub</strong>, we&#39;re dedicated to providing you with exceptional stretch therapy services in a welcoming and professional environment. <br/>Here are just a few reasons why you should choose us for your stretching needs:
             </p>
             <br/>
-            <ul className="list-disc list-inside text-white text-left mx-[20px] py-2">
-                <li><span style={{color: '#0fadb6'}}><strong>Expert Guidance:</strong></span> Our certified stretch therapists are experts in their field, specializing in a variety of techniques to enhance your flexibility, reduce pain, and improve overall wellness.</li>
-                <li><span style={{color: '#0fadb6'}}><strong>Personalized Plans:</strong></span> We understand that each body is unique. That&#39;s why we offer personalized stretching plans tailored to meet your specific health needs and fitness goals.</li>
-                <li><span style={{color: '#0fadb6'}}><strong>State-of-the-Art Facilities:</strong></span> Our facilities are equipped with the latest in stretch therapy technology and maintained to the highest standards of cleanliness and safety.</li>
-                <li><span style={{color: '#0fadb6'}}><strong>Community Focus:</strong></span> As Nairobi&#39;s premier stretch hub, we are committed to building a healthy community. We organize workshops and community events that foster a spirit of wellness and togetherness.</li>
-                <li><span style={{color: '#0fadb6'}}><strong>Comprehensive Health Benefits:</strong></span> Regular sessions at JPF Stretch Hub can help alleviate back pain, improve your posture, enhance athletic performance, and even contribute to stress reduction.</li>
-                <li><span style={{color: '#0fadb6'}}><strong>Convenient Location:</strong></span> Easily accessible in the heart of Nairobi, our hub is conveniently located to serve you better, ensuring that you can reach us without hassle.</li>
+            <ul className="list-disc list-inside text-white text-left tracking-normal mx-auto ">
+                <li className="py-4"><span className="text-lg " style={{color: '#0fadb6'}}><strong>Expert Guidance:</strong></span> <br/>Our certified stretch therapists are specialized in a variety of techniques to enhance your flexibility, reduce pain, and improve overall wellness.</li>
+                <li className="py-4"><span className="text-lg" style={{color: '#0fadb6'}}><strong>Personalized Plans:</strong></span> <br/>We understand that each body is unique. That&#39;s why we offer personalized stretching plans tailored to meet your specific health needs and fitness goals.</li>
+                <li className="py-4"><span className="text-lg" style={{color: '#0fadb6'}}><strong>State-of-the-Art Facilities:</strong></span> <br/>Our facilities are equipped with the latest in stretch therapy technology and maintained to the highest standards of cleanliness and safety.</li>
+                <li className="py-4"><span className="text-lg" style={{color: '#0fadb6'}}><strong>Community Focus:</strong></span> <br/>As Nairobi&#39;s premier stretch hub, we are committed to building a healthy community. We organize workshops and community events that foster a spirit of wellness and togetherness.</li>
+                <li className="py-4"><span className="text-lg" style={{color: '#0fadb6'}}><strong>Comprehensive Health Benefits:</strong></span> <br/>Regular sessions at JPF Stretch Hub can help alleviate back pain, improve your posture, enhance athletic performance, and even contribute to stress reduction.</li>
+                <li className="py-4"><span className="text-lg" style={{color: '#0fadb6'}}><strong>Convenient Location:</strong></span> <br/>Easily accessible in the heart of Nairobi, our hub is conveniently located to serve you better, ensuring that you can reach us without hassle.</li>
             </ul>
             
             <div className="mt-8">

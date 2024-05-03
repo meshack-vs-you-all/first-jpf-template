@@ -30,7 +30,7 @@
     align-items: center;
     height: 100vh; /* Full screen height*/
     background-color: black;
-    flex-direction: column; /* Stack dots and text vertically */
+    /*flex-direction: column;  Stack dots and text vertically */
     position: relative; /* Positioned relative to the viewport */
 }
 
@@ -57,6 +57,7 @@
 }
 
 .loading-text {
+    display: flex;
     color: white;
     margin-top: 20px; /* Space above the text */
     text-align: center; /* Center the text below the dots */

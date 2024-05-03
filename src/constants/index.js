@@ -4,9 +4,9 @@ export const navLinks = [
     { href: "#home", label: "Home" },
     { href: "#WhoWeAre", label: "About Us" },
     { href: "#WhatWeOffer", label: "Services" },
-    { href: "#Benefits", label: "Benefits" },
-    { href: "#Blog", label: "Blog" },
-    { href: "#Contact", label: "Contact Us" }, /*add a contact Section*/
+    { href: "#Pricing", label: "Pricing" },
+    { href: "#OurTeam", label: "Team" },
+    { href: "#CallToAction", label: "Contact Us" }, /*add a contact Section*/
 ];
 
 export const tabInfo = {

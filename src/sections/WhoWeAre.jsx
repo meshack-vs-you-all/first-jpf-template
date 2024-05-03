@@ -7,11 +7,11 @@ const WhoWeAre = () => {
     const tabs = Object.keys(tabInfo).map(key => ({ key, title: tabInfo[key].title }));
 
     return (
-        <main className="flex flex-col lg:flex-row gap-10 p-5 mt-[70px]">
-            <div className="flex flex-col lg:w-1/2">
+        <main className="flex flex-col lg:flex-row gap-10 p-5 mt-[70px] text-white">
+            <div className="flex flex-col lg:w-1/2 text-white">
                 <Tabs tabs={tabs} activeTab={activeTab} onTabClick={setActiveTab} />
                 
-                <div className="text-merriweather text-gray-600 text-lg p-8 mt-8 border-t border-gray-300">
+                <div className="text-merriweather text-white text-lg p-8 mt-8 border-t border-gray-300">
                     <p style={{ whiteSpace: "pre-wrap" }}>{tabInfo[activeTab].content}</p>
                 </div>
             </div>
