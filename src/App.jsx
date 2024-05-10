@@ -22,7 +22,7 @@ const App = () => {
     return (
         <main className="relative flex-auto w-full pt-20">
             <Nav />
-            <section className="mt-10"><Hero /></section>
+            <section className=" bg-hero mt-10"><Hero /></section>
             <section className="bg-light w-full flex flex-col lg:flex-row gap-5 p-5 mb-10"><WhoWeAre /></section>
             <section className="bg-[#1d1f22] flex flex-col lg:flex-row gap-5 p-5 my-10"><OurTeam /></section>
             <section className="bg-light w-full flex flex-col lg:flex-row gap-5 p-5 mb-10"><WhatWeOffer /></section>
