@@ -1,8 +1,11 @@
 import { tabInfo } from '../constants';
 import Tabs from '../components/Tabs';
 import { useState } from 'react';
+import Carousel from '../components/carousel';
+
+
 const WhoWeAre = () => {
-    // State to keep track of which information to display
+    // State to keep track of which tab is currently active
     const [activeTab, setActiveTab] = useState('whoWeAre');
     const tabs = Object.keys(tabInfo).map(key => ({ key, title: tabInfo[key].title }));
 
@@ -16,19 +19,12 @@ const WhoWeAre = () => {
                 </div>
             </div>
 
-            <div className="lg:w-1/2">
-                <img 
-                    src="/src/assets/images/stretch-hub-female.jpg" 
-                    alt="Stretching session at JPF Stretch Hub"
-                    className="rounded-lg shadow-lg max-w-full h-auto align-middle border-none"
-                />
-
+            {/* Carousel Container */}
+            <div className="lg:w-1/2 w-full align-items-center h-auto lg:h-screen relative overflow-hidden">
+                {/* The Carousel component is nested here. It should now respect the bounds of its container. */}
+                <Carousel />
             </div>
-
-            
-            
         </main>
-        
     );
 };
 

@@ -9,10 +9,13 @@ const Footer = () => {
                 <div className="w-full md:w-1/3 mb-6 md:mb-0">
                     <h2 className="text-lg font-bold mb-2">Quick Links</h2>
                     <ul>
-                        <li><a href="#services" className="hover:text-gray-300">Our Services</a></li>
-                        <li><a href="#contact" className="hover:text-gray-300">Contact Us</a></li>
-                        <li><a href="#about" className="hover:text-gray-300">About Us</a></li>
-                        <li><a href="#faq" className="hover:text-gray-300">FAQ</a></li>
+                        <li><a href="#services" className="hover:text-brand-secondary">Our Services</a></li>
+                        <li><a href="#trainers" className="hover:text-brand-secondary">Our Trainers</a></li>
+                        
+                        <li><a href="#contact" className="hover:text-brand-secondary">Contact Us</a></li>
+                
+                        <li><a href="#" className="hover:text-brand-secondary">Blog</a></li>
+                        <li><a href="#faq" className="hover:text-brand-secondary">FAQ</a></li>
                     </ul>
                 </div>
                 <div className="w-full md:w-1/3">

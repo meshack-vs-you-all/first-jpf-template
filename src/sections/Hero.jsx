@@ -5,11 +5,11 @@ const Hero = () => {
   return (
     <section 
       id="home"
-      className="relative flex items-center justify-start min-h-screen p-4 bg-cover bg-center bg-hero"
+      className="relative flex items-center justify-start min-h-screen p-4 bg-cover bg-center bg-hero bg-no-repeat "
       // Replace 'path/to/your/background-image.jpg' with your actual image path
     >
-      <div className="w-full max-w-4xl pl-10 space-y-6">
-        <h1 className='text-4xl lg:text-6xl text-white font-bold leading-tight'>
+      <div className="w-full max-w-4xl pl-10 space-y-6 ">
+        <h1 className='text-4xl lg:text-6xl text-white font-bold leading-tight '>
           ONE-ON-ONE ASSISTED STRETCH
           <br />
           <span className='text-brand-primary'>STUDIO</span>

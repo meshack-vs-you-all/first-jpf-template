@@ -22,12 +22,12 @@ const App = () => {
     return (
         <main className="relative flex-auto w-full pt-20">
             <Nav />
-            <section className=" bg-hero mt-10"><Hero /></section>
+            <section className="mt-10"><Hero /></section>
             <section className="bg-light w-full flex flex-col lg:flex-row gap-5 p-5 mb-10"><WhoWeAre /></section>
-            <section className="bg-[#1d1f22] flex flex-col lg:flex-row gap-5 p-5 my-10"><OurTeam /></section>
-            <section className="bg-light w-full flex flex-col lg:flex-row gap-5 p-5 mb-10"><WhatWeOffer /></section>
-            <section className="bg-[#1d1f22] text-white w-full flex flex-col lg:flex-row gap-5 p-5 mb-10"><WhyChooseUs /></section>
-            <section className="bg-light w-full flex flex-col lg:flex-row gap-5 p-5 mb-10"><CallToAction /></section>
+            <section id='OurTeam' className="bg-[#1d1f22] flex flex-col lg:flex-row gap-5 p-5 my-10"><OurTeam /></section>
+            <section id='WhatWeOffer' className="bg-light w-full flex flex-col lg:flex-row gap-5 p-5 mb-10"><WhatWeOffer /></section>
+            <section id='WhyChooseUs' className="bg-[#1d1f22] text-white w-full flex flex-col lg:flex-row gap-5 p-5 mb-10"><WhyChooseUs /></section>
+            <section id='Contact' className="bg-light w-full flex flex-col lg:flex-row gap-5 p-5 mb-10"><CallToAction /></section>
             <section className="bg-black pt-20 mb-0"><Footer /></section>
         </main>
     );

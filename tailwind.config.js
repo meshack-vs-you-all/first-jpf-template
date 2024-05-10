@@ -32,7 +32,7 @@ export default {
     },
     extend: {
       backgroundImage: {
-        'hero': "url('/src/assets/images/IMG_9757.jpg')",
+        'hero': "url('/src/assets/images/backgrounds/IMG_9773.jpg')",
         'hero_opacity': "#222222 opacity(70%)"
       },
       fontFamily: {

@@ -15,17 +15,22 @@ const LoadingScreen = () => {
             });
         }, 500);
 
-        return () => {
-            clearInterval(timer);
-        };
+        return () => clearInterval(timer);
     }, []);
 
     return (
-        <div className="loading-dots">
-            <div className="dot"></div>
-            <div className="dot"></div>
-            <div className="dot"></div>
-            <div className="loading-text">{`${Math.round(progress)}%`}</div>
+        <div className="flex justify-center items-center h-screen bg-gradient-to-b from-black to-[#222222]">
+            <div className="text-center">
+                <div className="flex justify-center">
+                    {[...Array(3)].map((_, index) => (
+                        <div
+                            key={index}
+                            className={`w-2.5 h-2.5 bg-white rounded-full mx-0.5 animate-pulse delay-${index * 100}`}
+                        />
+                    ))}
+                </div>
+                <div className="text-white mt-5">{`${Math.round(progress)}%`}</div>
+            </div>
         </div>
     );
 };

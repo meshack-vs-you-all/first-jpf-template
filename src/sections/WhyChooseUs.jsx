@@ -33,7 +33,7 @@ const WhyChooseUs = () => {
                 <li><span style={{color: '#0fadb6'}}><strong>Convenient Location:</strong></span> Easily accessible in the heart of Nairobi, our hub is conveniently located to serve you better, ensuring that you can reach us without hassle.</li>
             </ul>
             
-            <div className="mt-8">
+            <div id='faq' className="mt-8">
                 <h3 className="text-xl text-brand-primary font-semibold mb-4">Frequently Asked Questions (FAQ)</h3>
                 <div className="text-left space-y-4">
                     {faqs.map(faq => (

@@ -3,6 +3,7 @@ import { navLinks } from "../constants";
 
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState(null); // State to track active link
 
   // Toggle the visibility of the mobile menu
   const toggleMenu = () => {
@@ -37,14 +38,18 @@ const Nav = () => {
           <ul className="hidden lg:flex flex-1 justify-center items-center gap-8">
             {navLinks.map((item) => (
               <li key={item.label}>
-                <a href={item.href} className='font-montserrat text-lg text-gray-800'>
+                <a
+                  href={item.href}
+                  className={`font-montserrat text-lg text-gray-800 hover:text-brand-primary ${activeLink === item.label ? 'active' : ''}`}
+                  onClick={() => setActiveLink(item.label)} // Set active link on click
+                >
                   {item.label}
                 </a>
               </li>
             ))}
           </ul>
           <div className='hidden lg:flex text-lg font-medium font-montserrat mr-24'>
-            <a href='/' className="text-gray-800">Learn More</a>
+            <a href='#WhyChooseUs' className="text-gray-800 hover:text-brand-primary active:text-brand-primary">Learn More</a>
           </div>
           <div className="lg:hidden relative">
             <button onClick={toggleMenu} className="appearance-none bg-transparent border-none cursor-pointer p-2">

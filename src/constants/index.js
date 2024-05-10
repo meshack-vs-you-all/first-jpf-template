@@ -5,7 +5,7 @@ export const navLinks = [
     { href: "#WhoWeAre", label: "About Us" },
     { href: "#WhatWeOffer", label: "Services" },
     { href: "#Benefits", label: "Benefits" },
-    { href: "#Blog", label: "Blog" },
+    { href: "#OurTeam", label: "Our Team" },
     { href: "#Contact", label: "Contact Us" }, /*add a contact Section*/
 ];
 
