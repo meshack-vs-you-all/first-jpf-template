@@ -1,22 +1,28 @@
-// src/pages/Auth.jsx
-
-import  { useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Auth = () => {
     const [isRegister, setIsRegister] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleAuth = async (e) => {
         e.preventDefault();
         try {
             if (isRegister) {
-                // Call your API to register the user
+               // const response = await axios.post('http://localhost:8000/auth/register', { email, password });
                 console.log('Register user', { email, password });
             } else {
-                // Call your API to log in the user
+                const response = await axios.post('http://localhost:8000/auth/login', { email, password });
                 console.log('Login user', { email, password });
+                if (response.data.role === 'admin') {
+                    navigate('/admin');
+                } else {
+                    navigate('/'); // Redirect to a user dashboard or home page
+                }
             }
         } catch (error) {
             setError('Authentication failed. Please try again.');
@@ -61,7 +67,7 @@ const Auth = () => {
                         </button>
                     </form>
                 </div>
-                <div className=" md:flex w-full md:w-1/2 bg-brand-primary text-white items-center justify-center p-8 rounded-xl">
+                <div className="md:flex w-full md:w-1/2 bg-brand-primary text-white items-center justify-center p-8 rounded-xl">
                     <div className="text-center">
                         <h2 className="text-3xl font-bold">{isRegister ? 'Welcome Back!' : 'New User?'}</h2>
                         <p className="mt-4">{isRegister ? 'Already have an account?' : 'Claim your First Timers 50-minute Intro Stretch starting at $27 (Ksh. 3,516) per session'}</p>
