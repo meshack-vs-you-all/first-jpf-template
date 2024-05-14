@@ -1,13 +1,23 @@
-/*import { facebook, instagram, support, twitter } from "../assets/icons";*/
-
 export const navLinks = [
-    { href: "#home", label: "Home" },
-    { href: "#WhoWeAre", label: "About Us" },
-    { href: "#WhatWeOffer", label: "Services" },
-    { href: "#Benefits", label: "Benefits" },
-    { href: "#OurTeam", label: "Our Team" },
-    { href: "#Contact", label: "Contact Us" }, /*add a contact Section*/
+    { href: "/", label: "Home" },  // Updated to navigate to home page
+    { href: "/#WhoWeAre", label: "About Us" },
+    { href: "/#WhatWeOffer", label: "Services" },
+    { href: "/#Benefits", label: "Benefits" },
+    { href: "/#OurTeam", label: "Our Team" },
+    { href: "/#Contact", label: "Contact Us" },  // Updated to navigate to contact section
 ];
+
+export const userLinks = [
+    { href: "/user/bookings", label: "My Bookings" },
+    { href: "/user/booking-portal", label: "Make a Booking" },
+    { href: "/user/payments", label: "Payments" },
+];
+
+export const adminLinks = [
+    { href: "/admin/admin-component-1", label: "Admin Component 1" },
+    { href: "/admin/admin-component-2", label: "Admin Component 2" },
+];
+
 
 export const tabInfo = {
     whoWeAre: {
@@ -26,14 +36,4 @@ export const tabInfo = {
 
 
   
-  export const userLinks = [
-    { label: 'My Bookings', href: '/user/bookings' },
-    { label: 'Make a Booking', href: '/user/booking-portal' },
-    { label: 'Payments', href: '/user/payments' },
-  ];
-  
-  export const adminLinks = [
-    { label: 'Admin Component 1', href: '/admin/admin-component-1' },
-    { label: 'Admin Component 2', href: '/admin/admin-component-2' },
-  ];
-  
+ 

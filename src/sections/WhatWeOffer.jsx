@@ -22,7 +22,7 @@ const services = [
 
 const WhatWeOffer = () => {
     return (
-        <div className="container bg-light mx-auto px-4 py-12 min-h-screen">
+        <div className="container bg-[#1f1d22] mx-auto px-4 py-12 min-h-screen">
             <h2 className="text-3xl font-bold text-center text-brand-primary mb-20">OUR STRETCH SERVICES</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                 {services.map(service => (

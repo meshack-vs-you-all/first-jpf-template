@@ -24,7 +24,7 @@ const WhyChooseUs = () => {
                 At <strong>JPF Stretch Hub</strong>, we&#39;re dedicated to providing you with exceptional stretch therapy services in a welcoming and professional environment.  Here are just a few reasons why you should choose us for your stretching needs:
             </p>
             <br/>
-            <ul className="list-disc list-inside text-white text-left mx-[20px] py-2">
+            <ul className="list-disc list-inside text-black text-left mx-[20px] py-2">
                 <li><span style={{color: '#0fadb6'}}><strong>Expert Guidance:</strong></span> Our certified stretch therapists are experts in their field, specializing in a variety of techniques to enhance your flexibility, reduce pain, and improve overall wellness.</li>
                 <li><span style={{color: '#0fadb6'}}><strong>Personalized Plans:</strong></span> We understand that each body is unique. That&#39;s why we offer personalized stretching plans tailored to meet your specific health needs and fitness goals.</li>
                 <li><span style={{color: '#0fadb6'}}><strong>State-of-the-Art Facilities:</strong></span> Our facilities are equipped with the latest in stretch therapy technology and maintained to the highest standards of cleanliness and safety.</li>
