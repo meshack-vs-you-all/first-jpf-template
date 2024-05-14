@@ -1,5 +1,5 @@
 import { useState } from 'react';
-//import axios from 'axios';
+import axios from 'axios';
 
 const BookingPortal = () => {
     const [details, setDetails] = useState('');
@@ -8,7 +8,7 @@ const BookingPortal = () => {
     const handleBooking = async (e) => {
         e.preventDefault();
         try {
-            //const response = await axios.post('http://localhost:8000/bookings', { details });
+            const response = await axios.post('http://localhost:8000/bookings', { details });
             setMessage('Booking successful!');
             setDetails('');
         } catch (error) {
