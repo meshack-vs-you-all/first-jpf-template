@@ -28,6 +28,7 @@ export default {
       'dark': '#131313',
       'light': '#fff',
       'light-gray': '#f9f9f9',
+      'red': '#e74c3c',
       // Additional brand-specific colors if needed can be added here
     },
     extend: {
