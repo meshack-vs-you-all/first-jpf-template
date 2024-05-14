@@ -1,16 +1,16 @@
+// src/components/Nav.jsx
+
 import { useState } from 'react';
 import { navLinks } from "../constants";
 
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState(null); // State to track active link
+  const [activeLink, setActiveLink] = useState(null);
 
-  // Toggle the visibility of the mobile menu
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  // Close the menu when a link is clicked
   const closeMenu = () => {
     setIsOpen(false);
   };
@@ -18,14 +18,17 @@ const Nav = () => {
   return (
     <div className="fixed top-0 z-50 w-full">
       {/* Announcement Banner */}
-      <div className="bg-gray text-center py-2 font-semibold ">
+      <div className="bg-gray text-center py-2 font-semibold">
         <p><b>INTRODUCING NAIROBI&#39;S FIRST STRETCH HUB</b></p>
       </div>
 
       {/* Location Banner */}
-      <div className="bg-brand-primary text-center py-2">
+      <div className="bg-brand-primary text-center py-2 flex items-center justify-center relative">
         <a href="#" className="animate-pulse inline-block px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">
           GET DIRECTIONS
+        </a>
+        <a href="/auth" className="text-sm font-medium text-white hover:underline absolute right-4">
+          Sign In
         </a>
       </div>
 
@@ -33,7 +36,7 @@ const Nav = () => {
       <header className="bg-light shadow">
         <nav className="flex justify-between items-center w-full px-5 py-3">
           <a href='/'>
-              <img src="/src/assets/images/jpf_logo.jpg" alt="logo" className="h-16 w-auto" />
+            <img src="/src/assets/images/jpf_logo.jpg" alt="logo" className="h-16 w-auto" />
           </a>
           <ul className="hidden lg:flex flex-1 justify-center items-center gap-8">
             {navLinks.map((item) => (
@@ -41,7 +44,7 @@ const Nav = () => {
                 <a
                   href={item.href}
                   className={`font-montserrat text-lg text-gray-800 hover:text-brand-primary ${activeLink === item.label ? 'active' : ''}`}
-                  onClick={() => setActiveLink(item.label)} // Set active link on click
+                  onClick={() => setActiveLink(item.label)}
                 >
                   {item.label}
                 </a>
@@ -71,6 +74,6 @@ const Nav = () => {
       </header>
     </div>
   );
-}
+};
 
 export default Nav;
