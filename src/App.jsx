@@ -16,7 +16,7 @@ const App = () => {
             const token = localStorage.getItem('token');
             if (token) {
                 try {
-                    const response = await axios.get('http://localhost:8000/auth/me', {
+                    const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/me`, {
                         headers: { Authorization: `Bearer ${token}` }
                     });
                     setIsAuthenticated(true);
