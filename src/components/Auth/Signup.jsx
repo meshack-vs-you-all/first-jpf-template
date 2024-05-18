@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { decode } from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 const Signup = () => {
     const [formData, setFormData] = useState({ username: '', email: '', password: '' });
@@ -17,7 +17,7 @@ const Signup = () => {
         try {
             const response = await axios.post('http://localhost:8000/users/register', formData);
             localStorage.setItem('token', response.data.access_token);
-            const decodedToken = decode(response.data.access_token);
+            const decodedToken = jwtDecode(response.data.access_token); // Use named import
             const userRole = decodedToken.role;
 
             switch (userRole) {

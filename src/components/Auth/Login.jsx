@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { jwtDecode } from 'jwt-decode';
+
 
 const Login = () => {
     const [formData, setFormData] = useState({ username: '', password: '' });
@@ -16,29 +18,21 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const formDataEncoded = new URLSearchParams();
-            formDataEncoded.append('username', formData.username);
-            formDataEncoded.append('password', formData.password);
-
-            const response = await axios.post('http://localhost:8000/users/login', formDataEncoded, {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-            });
-
+            const response = await axios.post('http://localhost:8000/users/login', formData);
             localStorage.setItem('token', response.data.access_token);
+            const decodedToken = jwtDecode(response.data.access_token); // Use named import
+            const userRole = decodedToken.role;
 
-            // Decode the JWT to extract role
-            const payload = JSON.parse(atob(response.data.access_token.split('.')[1]));
-            localStorage.setItem('role', payload.role);
-
-            // Redirect based on user role
-            if (payload.role === 'admin') {
-                navigate('/admin');
-            } else if (payload.role === 'user') {
-                navigate('/user');
-            } else {
-                navigate('/');
+            switch (userRole) {
+                case 'admin':
+                    navigate('/admin-dashboard');
+                    break;
+                case 'trainer':
+                    navigate('/trainer-dashboard');
+                    break;
+                default:
+                    navigate('/user-dashboard');
+                    break;
             }
         } catch (error) {
             setError('Invalid username or password');
@@ -66,15 +60,15 @@ const Login = () => {
                             className="w-full p-2 border border-gray-300 rounded"
                         />
                     </div>
-                    <div className="relative">
+                    <div>
                         <label htmlFor="password" className="block text-gray-700">Password</label>
                         <input
-                            type={passwordVisible ? 'text' : 'password'}
+                            type="password"
                             name="password"
                             placeholder="Enter your password"
                             value={formData.password}
                             onChange={handleChange}
-                            className="w-full p-2 border border-gray-300 rounded pr-10"
+                            className="w-full p-2 border border-gray-300 rounded"
                         />
                         <div className="absolute inset-y-0 right-0 pt-5 pr-3 flex items-center text-lg leading-5">
                             <button type="button" onClick={togglePasswordVisibility} className="focus:outline-none">
@@ -86,7 +80,7 @@ const Login = () => {
                     <button type="submit" className="w-full px-4 py-2 bg-brand-primary text-white rounded hover:bg-[#61c6dd] active:text-gray-dark">
                         Sign in
                     </button>
-                    <p className="mt-4">New User? <br/><a className="text-brand-primary hover:underline" href="/signup">Sign Up</a> and Claim your <span className="text-brand-primary">First Timers 50-minute Intro Stretch</span> starting at $27 (Ksh. 3,516) per session</p>
+                    <p className="mt-4">New User? <br/><a href="/signup">Sign Up</a> and Claim your <span className="text-brand-primary">First Timers 50-minute Intro Stretch</span> starting at $27 (Ksh. 3,516) per session</p>
                 </form>
             </div>
         </div>
