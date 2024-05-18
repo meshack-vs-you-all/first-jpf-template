@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { decode } from 'jwt-decode';
 
 const Signup = () => {
     const [formData, setFormData] = useState({ username: '', email: '', password: '' });
@@ -16,7 +17,20 @@ const Signup = () => {
         try {
             const response = await axios.post('http://localhost:8000/users/register', formData);
             localStorage.setItem('token', response.data.access_token);
-            navigate('/user');
+            const decodedToken = decode(response.data.access_token);
+            const userRole = decodedToken.role;
+
+            switch (userRole) {
+                case 'admin':
+                    navigate('/admin-dashboard');
+                    break;
+                case 'trainer':
+                    navigate('/trainer-dashboard');
+                    break;
+                default:
+                    navigate('/user-dashboard');
+                    break;
+            }
         } catch (error) {
             setError('Error during registration');
         }
@@ -64,6 +78,7 @@ const Signup = () => {
                     <button type="submit" className="w-full px-4 py-2 bg-brand-primary text-white rounded hover:bg-[#61c6dd] active:text-gray-dark">
                         Sign Up
                     </button>
+                    <p className="text-center">Already have an account? <a className="text-brand-primary active:underline" href="/login">Login</a></p>
                 </form>
             </div>
         </div>

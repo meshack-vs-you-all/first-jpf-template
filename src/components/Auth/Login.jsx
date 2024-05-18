@@ -86,7 +86,7 @@ const Login = () => {
                     <button type="submit" className="w-full px-4 py-2 bg-brand-primary text-white rounded hover:bg-[#61c6dd] active:text-gray-dark">
                         Sign in
                     </button>
-                    <p className="mt-4">New User? <br/><a href="/signup">Sign Up</a> and Claim your <span className="text-brand-primary">First Timers 50-minute Intro Stretch</span> starting at $27 (Ksh. 3,516) per session</p>
+                    <p className="mt-4">New User? <br/><a className="text-brand-primary hover:underline" href="/signup">Sign Up</a> and Claim your <span className="text-brand-primary">First Timers 50-minute Intro Stretch</span> starting at $27 (Ksh. 3,516) per session</p>
                 </form>
             </div>
         </div>

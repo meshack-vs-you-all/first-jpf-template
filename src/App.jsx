@@ -20,6 +20,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import TrainerDashboard from './components/Trainer/TrainerDashboard';
 
 const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -67,8 +68,9 @@ const App = () => {
                     <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <Login />} />
                     <Route path="/signup" element={isAuthenticated ? <Navigate to="/" /> : <Signup />} />
                     <Route path="/complete-profile" element={isAuthenticated && !profileComplete ? <CompleteProfile /> : <Navigate to="/" />} />
-                    <Route path="/admin" element={isAuthenticated && userRole === 'admin' ? <AdminDashboard /> : <Navigate to="/login" />} />
-                    <Route path="/user" element={isAuthenticated && userRole === 'user' ? <UserDashboard /> : <Navigate to="/login" />} />
+                    <Route path="/admin-dashboard" element={isAuthenticated && userRole === 'admin' ? <AdminDashboard /> : <Navigate to="/login" />} />
+                    <Route path="/user-dashboard" element={isAuthenticated && userRole === 'user' ? <UserDashboard /> : <Navigate to="/login" />} />
+                    <Route path="/trainer-dashboard" element={isAuthenticated && userRole === 'trainer' ? <TrainerDashboard /> : <Navigate to="/login" />} />
                     <Route path="/profile" element={isAuthenticated ? <Profile /> : <Navigate to="/login" />} />
                     <Route path="/feedback" element={isAuthenticated ? <Feedback /> : <Navigate to="/login" />} />
                     <Route path="/view-feedback" element={isAuthenticated && userRole === 'admin' ? <ViewFeedback /> : <Navigate to="/login" />} />
