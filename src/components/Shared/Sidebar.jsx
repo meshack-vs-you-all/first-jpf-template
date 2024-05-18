@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { userLinks, adminLinks } from '../constants';
+import { userLinks, adminLinks } from '../../constants';
 
 const Sidebar = ({ role }) => {
   const links = role === 'admin' ? adminLinks : userLinks;

@@ -1,7 +1,7 @@
 import { tabInfo } from '../constants';
-import Tabs from '../components/Tabs';
+import Tabs from '../components/Shared/Tabs';
 import { useState } from 'react';
-import Carousel from '../components/carousel';
+import Carousel from '../components/Shared/carousel';
 
 
 const WhoWeAre = () => {
