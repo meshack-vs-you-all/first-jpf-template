@@ -20,7 +20,7 @@ const Signup = () => {
             return;
         }
         try {
-            await axios.post('http://localhost:8000/users/', formData);
+            await axios.post('http://localhost:8000/users/register', formData);
             navigate('/auth');
         } catch (error) {
             setError('Error creating account');
@@ -32,8 +32,8 @@ const Signup = () => {
             <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-md">
                 <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
                 
-                {error && <p className="text-red-500 mb-4">{error}</p>}
-                {passwordMatchError && <p className="text-red-500 mb-4">{passwordMatchError}</p>}
+                {error && <p className="text-red mb-4">{error}</p>}
+                {passwordMatchError && <p className="text-red mb-4">{passwordMatchError}</p>}
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label htmlFor="username" className="block text-black">Username</label>

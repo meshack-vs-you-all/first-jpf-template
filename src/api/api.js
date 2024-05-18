@@ -5,7 +5,7 @@ import axios from 'axios';
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: API_URL,
   withCredentials: true,
 });
 
@@ -42,8 +42,6 @@ export const getPaymentStatus = async (id) => {
 };
 
 // Authentication and User Management
-
-
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -53,12 +51,28 @@ api.interceptors.request.use((config) => {
 });
 
 export const loginUser = async (credentials) => {
-    const response = await api.post('/users/login', credentials);
-    return response.data;
+  const formData = new URLSearchParams();
+  formData.append('username', credentials.username);
+  formData.append('password', credentials.password);
+
+  const response = await api.post('/users/login', formData, {
+      headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+      },
+  });
+
+  // Store token and role in local storage
+  localStorage.setItem('token', response.data.access_token);
+
+  // Decode JWT to extract role
+  const payload = JSON.parse(atob(response.data.access_token.split('.')[1]));
+  localStorage.setItem('role', payload.role);
+
+  return response.data;
 };
 
 export const signupUser = async (data) => {
-    const response = await api.post('/users', data);
+    const response = await api.post('/users/register', data);
     return response.data;
 };
 
@@ -71,9 +85,6 @@ export const completeUserProfile = async (data) => {
     const response = await api.put('/users/complete-profile', data);
     return response.data;
 };
-
-
-
 
 // Services
 export const fetchServices = async () => {
@@ -138,5 +149,3 @@ export const fetchQueries = async () => {
   const response = await api.get('/queries');
   return response.data;
 };
-
-export default api;

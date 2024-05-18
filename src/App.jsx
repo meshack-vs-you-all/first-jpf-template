@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Nav from './components/Shared/Nav';
 import AdminDashboard from './components/Admin/AdminDashboard';
-import Auth from './components/Auth/Login';
+import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
 import CompleteProfile from './components/Auth/CompleteProfile';
 import UserDashboard from './components/User/UserDashboard';
@@ -18,11 +18,13 @@ import PaymentManagement from './components/Admin/PaymentManagement';
 import Loading from './components/Shared/Loading';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userRole, setUserRole] = useState(null);
-    const [profileComplete, setProfileComplete] = useState(false);
+    const [profileComplete, setProfileComplete] = useState(true); // Assume profile is complete by default
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -36,8 +38,11 @@ const App = () => {
                     setIsAuthenticated(true);
                     setUserRole(response.data.role);
                     setProfileComplete(response.data.profileComplete);
+                    toast.success('Login successful!');
                 } catch (error) {
                     setIsAuthenticated(false);
+                    setUserRole(null);
+                    setProfileComplete(true);
                 } finally {
                     setLoading(false);
                 }
@@ -55,23 +60,24 @@ const App = () => {
     return (
         <Router>
             <Nav />
+            <ToastContainer />
             <main className="relative flex-auto w-full pt-20">
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/auth" element={<Auth />} />
-                    <Route path="/signup" element={<Signup />} />
+                    <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <Login />} />
+                    <Route path="/signup" element={isAuthenticated ? <Navigate to="/" /> : <Signup />} />
                     <Route path="/complete-profile" element={isAuthenticated && !profileComplete ? <CompleteProfile /> : <Navigate to="/" />} />
-                    <Route path="/admin" element={isAuthenticated && userRole === 'admin' ? <AdminDashboard /> : <Navigate to="/auth" />} />
-                    <Route path="/user" element={isAuthenticated && userRole === 'user' ? <UserDashboard /> : <Navigate to="/auth" />} />
-                    <Route path="/profile" element={isAuthenticated ? <Profile /> : <Navigate to="/auth" />} />
-                    <Route path="/feedback" element={isAuthenticated ? <Feedback /> : <Navigate to="/auth" />} />
-                    <Route path="/view-feedback" element={isAuthenticated && userRole === 'admin' ? <ViewFeedback /> : <Navigate to="/auth" />} />
-                    <Route path="/queries" element={isAuthenticated ? <Queries /> : <Navigate to="/auth" />} />
-                    <Route path="/view-queries" element={isAuthenticated && userRole === 'admin' ? <ViewQueries /> : <Navigate to="/auth" />} />
-                    <Route path="/service-management" element={isAuthenticated && userRole === 'admin' ? <ServiceManagement /> : <Navigate to="/auth" />} />
-                    <Route path="/booking-management" element={isAuthenticated && userRole === 'admin' ? <BookingManagement /> : <Navigate to="/auth" />} />
-                    <Route path="/user-bookings" element={isAuthenticated ? <UserBookings /> : <Navigate to="/auth" />} />
-                    <Route path="/payment-management" element={isAuthenticated && userRole === 'admin' ? <PaymentManagement /> : <Navigate to="/auth" />} />
+                    <Route path="/admin" element={isAuthenticated && userRole === 'admin' ? <AdminDashboard /> : <Navigate to="/login" />} />
+                    <Route path="/user" element={isAuthenticated && userRole === 'user' ? <UserDashboard /> : <Navigate to="/login" />} />
+                    <Route path="/profile" element={isAuthenticated ? <Profile /> : <Navigate to="/login" />} />
+                    <Route path="/feedback" element={isAuthenticated ? <Feedback /> : <Navigate to="/login" />} />
+                    <Route path="/view-feedback" element={isAuthenticated && userRole === 'admin' ? <ViewFeedback /> : <Navigate to="/login" />} />
+                    <Route path="/queries" element={isAuthenticated ? <Queries /> : <Navigate to="/login" />} />
+                    <Route path="/view-queries" element={isAuthenticated && userRole === 'admin' ? <ViewQueries /> : <Navigate to="/login" />} />
+                    <Route path="/service-management" element={isAuthenticated && userRole === 'admin' ? <ServiceManagement /> : <Navigate to="/login" />} />
+                    <Route path="/booking-management" element={isAuthenticated && userRole === 'admin' ? <BookingManagement /> : <Navigate to="/login" />} />
+                    <Route path="/user-bookings" element={isAuthenticated ? <UserBookings /> : <Navigate to="/login" />} />
+                    <Route path="/payment-management" element={isAuthenticated && userRole === 'admin' ? <PaymentManagement /> : <Navigate to="/login" />} />
                 </Routes>
             </main>
         </Router>

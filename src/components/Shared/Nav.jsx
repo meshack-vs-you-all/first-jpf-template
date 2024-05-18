@@ -26,7 +26,7 @@ const Nav = () => {
         <a href="#" className="animate-pulse inline-block px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">
           GET DIRECTIONS
         </a>
-        <Link to="/auth" className="text-sm font-medium text-white hover:underline absolute right-4">
+        <Link to="/login" className="text-sm font-medium text-white hover:underline absolute right-4">
          Sign In 
         </Link> 
         <Link to="/signup" className="text-sm font-medium text-white hover:underline absolute right-20 ">
