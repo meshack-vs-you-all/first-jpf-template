@@ -1,5 +1,5 @@
 // src/pages/Bookings.jsx
-
+import LoadingBooking from '../Shared/LoadingBooking';
 import  { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -59,7 +59,7 @@ const Bookings = () => {
     };
 
     if (isLoading) {
-        return <p>Loading...</p>;
+        return <p><LoadingBooking />...</p>;
     }
 
     return (

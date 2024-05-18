@@ -47,7 +47,7 @@ const Login = () => {
         <div className="flex items-center justify-center min-h-screen bg-white p-5">
             <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-xl">
                 <h2 className="text-2xl font-bold mb-4">Sign In</h2>
-                {error && <p className="text-red-500 mb-4">{error}</p>}
+                {error && <p className="text-red mb-4">{error}</p>}
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label htmlFor="username" className="block text-gray-700">Username</label>
@@ -60,23 +60,25 @@ const Login = () => {
                             className="w-full p-2 border border-gray-300 rounded"
                         />
                     </div>
-                    <div>
+                    <div className="relative">
                         <label htmlFor="password" className="block text-gray-700">Password</label>
                         <input
-                            type="password"
+                            type={passwordVisible ? 'text' : 'password'}
                             name="password"
                             placeholder="Enter your password"
                             value={formData.password}
                             onChange={handleChange}
-                            className="w-full p-2 border border-gray-300 rounded"
+                            className="w-full p-2 border border-gray-300 rounded pr-10"
                         />
-                        <div className="absolute inset-y-0 right-0 pt-5 pr-3 flex items-center text-lg leading-5">
+                        <div className="absolute inset-y-0 right-1 pt-5 pr-3 flex items-center text-lg leading-5">
                             <button type="button" onClick={togglePasswordVisibility} className="focus:outline-none">
                                 {passwordVisible ? <FaEyeSlash /> : <FaEye />}
                             </button>
                         </div>
                     </div>
-                    <div><a href="#" className="text-sm text-black hover:underline">Forgot Your Password?</a></div>
+                    <div>
+                        <a href="#" className="text-sm text-black hover:underline">Forgot Your Password?</a>
+                    </div>
                     <button type="submit" className="w-full px-4 py-2 bg-brand-primary text-white rounded hover:bg-[#61c6dd] active:text-gray-dark">
                         Sign in
                     </button>

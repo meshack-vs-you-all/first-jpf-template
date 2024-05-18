@@ -23,7 +23,7 @@ const Nav = () => {
 
       {/* Location Banner */}
       <div className="bg-brand-primary text-center py-2 flex items-center justify-center relative">
-        <a href="#" className="animate-pulse inline-block px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">
+        <a href="https://maps.app.goo.gl/UfhjxkUnahwZnn7r8" className="animate-pulse inline-block px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">
           GET DIRECTIONS
         </a>
         <Link to="/login" className="text-sm font-medium text-white hover:underline absolute right-4">

@@ -15,7 +15,7 @@ import ServiceManagement from './components/Admin/ServiceManagement';
 import BookingManagement from './components/Admin/BookingManagement';
 import UserBookings from './components/User/UserBookings';
 import PaymentManagement from './components/Admin/PaymentManagement';
-import Loading from './components/Shared/Loading';
+import LoadingHome from './components/Shared/LoadingHome';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -55,7 +55,7 @@ const App = () => {
     }, []);
 
     if (loading) {
-        return <Loading />;
+        return <LoadingHome/>;
     }
 
     return (
