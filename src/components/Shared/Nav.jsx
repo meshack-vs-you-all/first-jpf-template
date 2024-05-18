@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { navLinks } from "../constants";
+import { navLinks } from "../../constants";
 
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);

@@ -1,93 +1,91 @@
+// src/components/Profile/Profile.jsx
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
-    const [user, setUser] = useState({
-        username: '',
-        email: '',
-        // Add other user fields as necessary
-    });
-
-    const navigate = useNavigate();
+    const [profile, setProfile] = useState({});
+    const [editMode, setEditMode] = useState(false);
+    const [formData, setFormData] = useState({});
 
     useEffect(() => {
-        const fetchUser = async () => {
+        const fetchProfile = async () => {
             try {
-                const token = localStorage.getItem('token');
                 const response = await axios.get('http://localhost:8000/users/me', {
-                    headers: { Authorization: `Bearer ${token}` },
+                    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
                 });
-                setUser(response.data);
+                setProfile(response.data);
+                setFormData(response.data);
             } catch (error) {
-                console.error('Error fetching user data:', error);
+                console.error('Error fetching profile:', error);
             }
         };
-
-        fetchUser();
+        fetchProfile();
     }, []);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setUser({ ...user, [name]: value });
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSave = async () => {
         try {
-            const token = localStorage.getItem('token');
-            await axios.put(`http://localhost:8000/users/${user.user_id}`, user, {
-                headers: { Authorization: `Bearer ${token}` },
+            const response = await axios.put(`http://localhost:8000/users/${profile.user_id}`, formData, {
+                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
             });
-            alert('Profile updated successfully');
+            setProfile(response.data);
+            setEditMode(false);
         } catch (error) {
             console.error('Error updating profile:', error);
         }
     };
 
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        navigate('/auth');
-    };
-
     return (
-        <div className="max-w-4xl mx-auto p-4">
-            <h2 className="text-2xl font-bold mb-4">User Profile</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700">Username</label>
+        <div className="max-w-3xl mx-auto p-4 bg-white shadow-md rounded-lg">
+            <h1 className="text-2xl font-bold mb-4">Profile</h1>
+            {editMode ? (
+                <div className="space-y-4">
                     <input
                         type="text"
                         name="username"
-                        value={user.username}
+                        value={formData.username}
                         onChange={handleChange}
-                        className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full p-2 border border-gray-300 rounded"
+                        placeholder="Username"
                     />
-                </div>
-                <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700">Email</label>
                     <input
                         type="email"
                         name="email"
-                        value={user.email}
+                        value={formData.email}
                         onChange={handleChange}
-                        className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full p-2 border border-gray-300 rounded"
+                        placeholder="Email"
                     />
+                    <div className="flex space-x-4">
+                        <button
+                            onClick={handleSave}
+                            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                        >
+                            Save
+                        </button>
+                        <button
+                            onClick={() => setEditMode(false)}
+                            className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
+                        >
+                            Cancel
+                        </button>
+                    </div>
                 </div>
-                {/* Add other user fields as necessary */}
-                <button
-                    type="submit"
-                    className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-                >
-                    Update Profile
-                </button>
-            </form>
-            <button
-                onClick={handleLogout}
-                className="mt-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-            >
-                Logout
-            </button>
+            ) : (
+                <div className="space-y-4">
+                    <p><strong>Username:</strong> {profile.username}</p>
+                    <p><strong>Email:</strong> {profile.email}</p>
+                    <button
+                        onClick={() => setEditMode(true)}
+                        className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+                    >
+                        Edit
+                    </button>
+                </div>
+            )}
         </div>
     );
 };

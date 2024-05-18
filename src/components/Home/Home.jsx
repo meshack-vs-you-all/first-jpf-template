@@ -1,30 +1,8 @@
 // src/pages/Home.jsx
 
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Hero, Footer, WhatWeOffer, WhoWeAre, WhyChooseUs, CallToAction, OurTeam } from '../sections';  // Corrected path
-import LoadingScreen from '../components/LoadingScreen';
+import { Hero, Footer, WhatWeOffer, WhoWeAre, WhyChooseUs, CallToAction, OurTeam } from '../../sections';  // Corrected path
 
 const Home = () => {
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                await axios.get('http://localhost:8000/');
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    if (isLoading) {
-        return <LoadingScreen />;
-    }
 
     return (
         <>

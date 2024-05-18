@@ -8,6 +8,7 @@ const BookingPortal = () => {
     const handleBooking = async (e) => {
         e.preventDefault();
         try {
+            // eslint-disable-next-line no-unused-vars
             const response = await axios.post('http://localhost:8000/bookings', { details });
             setMessage('Booking successful!');
             setDetails('');
