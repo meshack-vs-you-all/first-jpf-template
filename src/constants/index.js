@@ -1,11 +1,14 @@
+
+// src/constants.js
 export const navLinks = [
-    { href: "/", label: "Home" },  // Updated to navigate to home page
-    { href: "/#WhoWeAre", label: "About Us" },
-    { href: "/#WhatWeOffer", label: "Services" },
-    { href: "/#Benefits", label: "Benefits" },
-    { href: "/#OurTeam", label: "Our Team" },
-    { href: "/#Contact", label: "Contact Us" },  // Updated to navigate to contact section
-];
+    { label: 'Home', href: '/#Hero' },
+    { label: 'About Us', href: '/#WhoWeAre' },
+    { label: 'Services', href: '/#WhatWeOffer' },
+    { label: 'Why Choose Us', href: '/#WhyChooseUs' },
+    { label: 'Our Team', href: '/#OurTeam' },
+    { label: 'Contact Us', href: '/#Contact' }
+  ];
+  
 
 export const userLinks = [
     { href: "/user/bookings", label: "My Bookings" },

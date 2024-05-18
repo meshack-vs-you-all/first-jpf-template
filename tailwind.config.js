@@ -52,7 +52,8 @@ export default {
       },
       screens: {
         '3xl': '2000px', // Custom breakpoint for wide screens
-      }
+      },
+     
     },
   },
   plugins: [],

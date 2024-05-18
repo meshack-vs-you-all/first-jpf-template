@@ -1,7 +1,9 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Nav from './components/Shared/Nav';
 import AdminDashboard from './components/Admin/AdminDashboard';
-import Auth from './components/Auth/Auth';
+import Auth from './components/Auth/Login';
+import Signup from './components/Auth/Signup';
+import CompleteProfile from './components/Auth/CompleteProfile';
 import UserDashboard from './components/User/UserDashboard';
 import Home from './components/Home/Home';
 import Profile from './components/Profile/Profile';
@@ -16,7 +18,6 @@ import PaymentManagement from './components/Admin/PaymentManagement';
 import Loading from './components/Shared/Loading';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import CompleteProfile from './components/Auth/CompleteProfile';
 
 const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -58,6 +59,8 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/auth" element={<Auth />} />
+                    <Route path="/signup" element={<Signup />} />
+                    <Route path="/complete-profile" element={isAuthenticated && !profileComplete ? <CompleteProfile /> : <Navigate to="/" />} />
                     <Route path="/admin" element={isAuthenticated && userRole === 'admin' ? <AdminDashboard /> : <Navigate to="/auth" />} />
                     <Route path="/user" element={isAuthenticated && userRole === 'user' ? <UserDashboard /> : <Navigate to="/auth" />} />
                     <Route path="/profile" element={isAuthenticated ? <Profile /> : <Navigate to="/auth" />} />
@@ -69,7 +72,6 @@ const App = () => {
                     <Route path="/booking-management" element={isAuthenticated && userRole === 'admin' ? <BookingManagement /> : <Navigate to="/auth" />} />
                     <Route path="/user-bookings" element={isAuthenticated ? <UserBookings /> : <Navigate to="/auth" />} />
                     <Route path="/payment-management" element={isAuthenticated && userRole === 'admin' ? <PaymentManagement /> : <Navigate to="/auth" />} />
-                    <Route path="/complete-profile" element={isAuthenticated && !profileComplete ? <CompleteProfile /> : <Navigate to="/" />} />
                 </Routes>
             </main>
         </Router>

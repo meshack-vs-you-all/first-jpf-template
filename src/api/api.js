@@ -5,7 +5,7 @@ import axios from 'axios';
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
 
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: 'http://localhost:8000',
   withCredentials: true,
 });
 
@@ -42,28 +42,38 @@ export const getPaymentStatus = async (id) => {
 };
 
 // Authentication and User Management
-export const registerUser = async (userData) => {
-  const response = await api.post('/users', userData);
-  return response.data;
+
+
+api.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+});
+
+export const loginUser = async (credentials) => {
+    const response = await api.post('/users/login', credentials);
+    return response.data;
 };
 
-export const loginUser = async (username, password) => {
-  const response = await api.post('/users/login', { username, password });
-  return response.data;
+export const signupUser = async (data) => {
+    const response = await api.post('/users', data);
+    return response.data;
 };
 
-export const logoutUser = async () => {
-  const response = await api.post('/auth/logout');
-  return response.data;
+export const fetchCurrentUser = async () => {
+    const response = await api.get('/users/me');
+    return response.data;
 };
 
-export const getUserProfile = async () => {
-  const token = localStorage.getItem('token');
-  const response = await api.get('/users/me', {
-    headers: { Authorization: `Bearer ${token}` }
-  });
-  return response.data;
+export const completeUserProfile = async (data) => {
+    const response = await api.put('/users/complete-profile', data);
+    return response.data;
 };
+
+
+
 
 // Services
 export const fetchServices = async () => {
@@ -128,3 +138,5 @@ export const fetchQueries = async () => {
   const response = await api.get('/queries');
   return response.data;
 };
+
+export default api;

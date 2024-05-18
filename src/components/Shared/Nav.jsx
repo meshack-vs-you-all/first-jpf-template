@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { HashLink as Link } from 'react-router-hash-link';
 import { navLinks } from "../../constants";
 
 const Nav = () => {
@@ -27,7 +27,10 @@ const Nav = () => {
           GET DIRECTIONS
         </a>
         <Link to="/auth" className="text-sm font-medium text-white hover:underline absolute right-4">
-          Sign In
+         Sign In 
+        </Link> 
+        <Link to="/signup" className="text-sm font-medium text-white hover:underline absolute right-20 ">
+          Sign Up
         </Link>
       </div>
 
@@ -41,6 +44,7 @@ const Nav = () => {
             {navLinks.map((item) => (
               <li key={item.label}>
                 <Link
+                  smooth
                   to={item.href}
                   className={`font-montserrat text-lg text-gray-800 hover:text-brand-primary ${activeLink === item.label ? 'active' : ''}`}
                   onClick={() => setActiveLink(item.label)}
@@ -51,7 +55,7 @@ const Nav = () => {
             ))}
           </ul>
           <div className='hidden lg:flex text-lg font-medium font-montserrat mr-24'>
-            <Link to='/#WhyChooseUs' className="text-gray-800 hover:text-brand-primary active:text-brand-primary">Learn More</Link>
+            <Link smooth to='/#WhyChooseUs' className="text-gray-800 hover:text-brand-primary active:text-brand-primary">Learn More</Link>
           </div>
           <div className="lg:hidden relative">
             <button onClick={toggleMenu} className="appearance-none bg-transparent border-none cursor-pointer p-2">
@@ -61,7 +65,7 @@ const Nav = () => {
               <ul className="absolute right-0 top-full bg-white shadow-lg flex flex-col items-start gap-2 p-4 w-48">
                 {navLinks.map((item) => (
                   <li key={item.label} onClick={closeMenu}>
-                    <Link to={item.href} className='block px-4 py-2 text-lg text-black'>
+                    <Link smooth to={item.href} className='block px-4 py-2 text-lg text-black'>
                       {item.label}
                     </Link>
                   </li>
