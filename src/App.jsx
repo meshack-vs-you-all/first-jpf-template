@@ -36,36 +36,39 @@ const App = () => {
                     const response = await axios.get('http://localhost:8000/users/me', {
                         headers: { Authorization: `Bearer ${token}` }
                     });
+                    console.log('Authentication check successful:', response.data);
                     setIsAuthenticated(true);
                     setUserRole(response.data.role);
                     setProfileComplete(response.data.profileComplete);
-                    toast.success('Login successful!');
                 } catch (error) {
+                    console.error('Error during authentication check:', error);
                     setIsAuthenticated(false);
-                    setUserRole(null);
-                    setProfileComplete(true);
-                } finally {
-                    setLoading(false);
                 }
             } else {
-                setLoading(false);
+                console.log('No token found');
+                setIsAuthenticated(false);
             }
+            setLoading(false);
         };
+
         checkAuth();
     }, []);
 
+    console.log('isAuthenticated:', isAuthenticated);
+    console.log('userRole:', userRole);
+
     if (loading) {
-        return <LoadingHome/>;
+        return <LoadingHome />;
     }
 
     return (
         <Router>
             <Nav />
             <ToastContainer />
-            <main className="relative flex-auto w-full pt-20">
+            <main>
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <Login />} />
+                    <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <Login setIsAuthenticated={setIsAuthenticated} setUserRole={setUserRole} setProfileComplete={setProfileComplete} />} />
                     <Route path="/signup" element={isAuthenticated ? <Navigate to="/" /> : <Signup />} />
                     <Route path="/complete-profile" element={isAuthenticated && !profileComplete ? <CompleteProfile /> : <Navigate to="/" />} />
                     <Route path="/admin-dashboard" element={isAuthenticated && userRole === 'admin' ? <AdminDashboard /> : <Navigate to="/login" />} />

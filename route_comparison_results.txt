@@ -1,0 +1,192 @@
+Route POST create_audit for resource audits is missing in the frontend.
+Recommended path: /api/audits
+
+Route GET read_audit for resource audits is missing in the frontend.
+Recommended path: /api/audits
+
+Route GET read_audits for resource audits is missing in the frontend.
+Recommended path: /api/audits
+
+Route DELETE delete_audit for resource audits is missing in the frontend.
+Recommended path: /api/audits
+
+Route POST create_user_query for resource user_queries is missing in the frontend.
+Recommended path: /api/user_queries
+
+Route GET read_user_query for resource user_queries is missing in the frontend.
+Recommended path: /api/user_queries
+
+Route GET read_user_queries for resource user_queries is missing in the frontend.
+Recommended path: /api/user_queries
+
+Route PUT update_user_query for resource user_queries is missing in the frontend.
+Recommended path: /api/user_queries
+
+Route DELETE delete_user_query for resource user_queries is missing in the frontend.
+Recommended path: /api/user_queries
+
+Route POST create_equipment for resource equipment is missing in the frontend.
+Recommended path: /api/equipment
+
+Route GET read_equipment for resource equipment is missing in the frontend.
+Recommended path: /api/equipment
+
+Route GET read_equipments for resource equipment is missing in the frontend.
+Recommended path: /api/equipment
+
+Route PUT update_equipment for resource equipment is missing in the frontend.
+Recommended path: /api/equipment
+
+Route DELETE delete_equipment for resource equipment is missing in the frontend.
+Recommended path: /api/equipment
+
+Route POST create_user for resource users is missing in the frontend.
+Recommended path: /api/users
+
+Route GET read_user for resource users is missing in the frontend.
+Recommended path: /api/users
+
+Route GET read_users for resource users is missing in the frontend.
+Recommended path: /api/users
+
+Route PUT update_user for resource users is missing in the frontend.
+Recommended path: /api/users
+
+Route DELETE delete_user for resource users is missing in the frontend.
+Recommended path: /api/users
+
+Route POST login_user for resource users is missing in the frontend.
+Recommended path: /api/users
+
+Route GET read_current_user for resource users is missing in the frontend.
+Recommended path: /api/users
+
+Route POST create_feedback for resource feedback is missing in the frontend.
+Recommended path: /api/feedback
+
+Route GET read_feedback for resource feedback is missing in the frontend.
+Recommended path: /api/feedback
+
+Route GET read_feedbacks for resource feedback is missing in the frontend.
+Recommended path: /api/feedback
+
+Route PUT update_feedback for resource feedback is missing in the frontend.
+Recommended path: /api/feedback
+
+Route DELETE delete_feedback for resource feedback is missing in the frontend.
+Recommended path: /api/feedback
+
+Route POST create_review for resource reviews is missing in the frontend.
+Recommended path: /api/reviews
+
+Route GET read_review for resource reviews is missing in the frontend.
+Recommended path: /api/reviews
+
+Route GET read_reviews for resource reviews is missing in the frontend.
+Recommended path: /api/reviews
+
+Route PUT update_review for resource reviews is missing in the frontend.
+Recommended path: /api/reviews
+
+Route DELETE delete_review for resource reviews is missing in the frontend.
+Recommended path: /api/reviews
+
+Route POST create_interaction for resource interactions is missing in the frontend.
+Recommended path: /api/interactions
+
+Route GET read_interaction for resource interactions is missing in the frontend.
+Recommended path: /api/interactions
+
+Route GET read_interactions for resource interactions is missing in the frontend.
+Recommended path: /api/interactions
+
+Route PUT update_interaction for resource interactions is missing in the frontend.
+Recommended path: /api/interactions
+
+Route DELETE delete_interaction for resource interactions is missing in the frontend.
+Recommended path: /api/interactions
+
+Route POST create_room for resource rooms is missing in the frontend.
+Recommended path: /api/rooms
+
+Route GET read_room for resource rooms is missing in the frontend.
+Recommended path: /api/rooms
+
+Route GET read_rooms for resource rooms is missing in the frontend.
+Recommended path: /api/rooms
+
+Route PUT update_room for resource rooms is missing in the frontend.
+Recommended path: /api/rooms
+
+Route DELETE delete_room for resource rooms is missing in the frontend.
+Recommended path: /api/rooms
+
+Route POST create_booking_detail for resource booking_details is missing in the frontend.
+Recommended path: /api/booking_details
+
+Route GET read_booking_detail for resource booking_details is missing in the frontend.
+Recommended path: /api/booking_details
+
+Route GET read_booking_details for resource booking_details is missing in the frontend.
+Recommended path: /api/booking_details
+
+Route PUT update_booking_detail for resource booking_details is missing in the frontend.
+Recommended path: /api/booking_details
+
+Route DELETE delete_booking_detail for resource booking_details is missing in the frontend.
+Recommended path: /api/booking_details
+
+Route POST create_booking for resource bookings is missing in the frontend.
+Recommended path: /api/bookings
+
+Route GET read_booking for resource bookings is missing in the frontend.
+Recommended path: /api/bookings
+
+Route GET read_bookings for resource bookings is missing in the frontend.
+Recommended path: /api/bookings
+
+Route POST create_payment for resource payments is missing in the frontend.
+Recommended path: /api/payments
+
+Route GET read_payment for resource payments is missing in the frontend.
+Recommended path: /api/payments
+
+Route GET read_payments for resource payments is missing in the frontend.
+Recommended path: /api/payments
+
+Route PUT update_payment for resource payments is missing in the frontend.
+Recommended path: /api/payments
+
+Route DELETE delete_payment for resource payments is missing in the frontend.
+Recommended path: /api/payments
+
+Route POST create_trainer for resource trainers is missing in the frontend.
+Recommended path: /api/trainers
+
+Route GET read_trainer for resource trainers is missing in the frontend.
+Recommended path: /api/trainers
+
+Route GET read_trainers for resource trainers is missing in the frontend.
+Recommended path: /api/trainers
+
+Route PUT update_trainer for resource trainers is missing in the frontend.
+Recommended path: /api/trainers
+
+Route DELETE delete_trainer for resource trainers is missing in the frontend.
+Recommended path: /api/trainers
+
+Route POST create_service for resource services is missing in the frontend.
+Recommended path: /api/services
+
+Route GET read_service for resource services is missing in the frontend.
+Recommended path: /api/services
+
+Route GET read_services for resource services is missing in the frontend.
+Recommended path: /api/services
+
+Route PUT update_service for resource services is missing in the frontend.
+Recommended path: /api/services
+
+Route DELETE delete_service for resource services is missing in the frontend.
+Recommended path: /api/services
+

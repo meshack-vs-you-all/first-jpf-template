@@ -2,14 +2,15 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
+import useRoleBasedRedirect from '../../utils/useRoleBasedRedirect';
 
-
-const Login = () => {
+const Login = ({ setIsAuthenticated, setUserRole, setProfileComplete }) => {
     const [formData, setFormData] = useState({ username: '', password: '' });
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const roleBasedRedirect = useRoleBasedRedirect();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,23 +19,26 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8000/users/login', formData);
-            localStorage.setItem('token', response.data.access_token);
-            const decodedToken = jwtDecode(response.data.access_token); // Use named import
-            const userRole = decodedToken.role;
+            const response = await axios.post('http://localhost:8000/users/login', formData, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const token = response.data.access_token;
+            localStorage.setItem('token', token);
 
-            switch (userRole) {
-                case 'admin':
-                    navigate('/admin-dashboard');
-                    break;
-                case 'trainer':
-                    navigate('/trainer-dashboard');
-                    break;
-                default:
-                    navigate('/user-dashboard');
-                    break;
-            }
+            const decodedToken = jwtDecode(token);
+            const userRole = decodedToken.role;
+            const profileComplete = decodedToken.profileComplete;
+
+            // Update state and redirect based on user details
+            setIsAuthenticated(true);
+            setUserRole(userRole);
+            setProfileComplete(profileComplete);
+            roleBasedRedirect(userRole, profileComplete);
+
         } catch (error) {
+            console.error('Login error:', error);
             setError('Invalid username or password');
         }
     };
@@ -44,7 +48,7 @@ const Login = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-white p-5">
+        <div className="flex items-center justify-center min-h-screen mt-20 bg-white p-5">
             <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-xl">
                 <h2 className="text-2xl font-bold mb-4">Sign In</h2>
                 {error && <p className="text-red mb-4">{error}</p>}
@@ -53,7 +57,9 @@ const Login = () => {
                         <label htmlFor="username" className="block text-gray-700">Username</label>
                         <input
                             type="text"
+                            id="username"
                             name="username"
+                            autoComplete="username"
                             placeholder="Enter your username"
                             value={formData.username}
                             onChange={handleChange}
@@ -64,6 +70,7 @@ const Login = () => {
                         <label htmlFor="password" className="block text-gray-700">Password</label>
                         <input
                             type={passwordVisible ? 'text' : 'password'}
+                            id="password"
                             name="password"
                             placeholder="Enter your password"
                             value={formData.password}
