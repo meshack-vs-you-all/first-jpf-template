@@ -1,5 +1,31 @@
 import axios from 'axios';
 import {jwtDecode} from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
+import useRoleBasedRedirect from '../utils/useRoleBasedRedirect';
+import useAuth from '../utils/useAuth';
+import useAuthCheck from '../utils/useAuthCheck'; 
+
+
+const useRoleBasedRedirect = (userRole, profileComplete) => {
+  const navigate = useNavigate();
+  if (userRole === 'admin' && profileComplete) {
+    navigate('/admin-dashboard');
+  } else if (userRole === 'trainer' && profileComplete) {
+    navigate('/trainer-dashboard');
+  } else {
+    navigate('/user-dashboard');
+  }
+};
+
+const useAuth = () => {
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+  if (!token) {
+    navigate('/login');
+  }
+};
+
+
 
 // Use environment variable or default to localhost with /api prefix
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
@@ -20,246 +46,119 @@ api.interceptors.request.use((config) => {
   return Promise.reject(error);
 });
 
-// Bookings
-export const fetchBookings = async () => {
+// Generic function to handle API requests
+const handleApiResponse = async (apiCall) => {
   try {
-    const response = await api.get('/bookings');
+    const response = await apiCall;
     return response.data;
   } catch (error) {
-    console.error('Error fetching bookings:', error);
+    console.error('API error:', error);
     throw error;
   }
 };
 
-export const createBooking = async (bookingData) => {
-  try {
-    const response = await api.post('/bookings', bookingData);
-    return response.data;
-  } catch (error) {
-    console.error('Error creating booking:', error);
-    throw error;
-  }
-};
+// Audits
+export const createAudit = async (auditData) => handleApiResponse(api.post('/audits', auditData));
+export const getAudit = async (id) => handleApiResponse(api.get(`/audits/${id}`));
+export const getAudits = async () => handleApiResponse(api.get('/audits'));
+export const deleteAudit = async (id) => handleApiResponse(api.delete(`/audits/${id}`));
 
-export const updateBooking = async (id, bookingData) => {
-  try {
-    const response = await api.put(`/bookings/${id}`, bookingData);
-    return response.data;
-  } catch (error) {
-    console.error('Error updating booking:', error);
-    throw error;
-  }
-};
+// User Queries
+export const createUserQuery = async (queryData) => handleApiResponse(api.post('/user_queries', queryData));
+export const getUserQuery = async (id) => handleApiResponse(api.get(`/user_queries/${id}`));
+export const getUserQueries = async () => handleApiResponse(api.get('/user_queries'));
+export const updateUserQuery = async (id, queryData) => handleApiResponse(api.put(`/user_queries/${id}`, queryData));
+export const deleteUserQuery = async (id) => handleApiResponse(api.delete(`/user_queries/${id}`));
 
-export const deleteBooking = async (id) => {
-  try {
-    const response = await api.delete(`/bookings/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error('Error deleting booking:', error);
-    throw error;
-  }
-};
+// Equipment
+export const createEquipment = async (equipmentData) => handleApiResponse(api.post('/equipment', equipmentData));
+export const getEquipment = async (id) => handleApiResponse(api.get(`/equipment/${id}`));
+export const getEquipments = async () => handleApiResponse(api.get('/equipment'));
+export const updateEquipment = async (id, equipmentData) => handleApiResponse(api.put(`/equipment/${id}`, equipmentData));
+export const deleteEquipment = async (id) => handleApiResponse(api.delete(`/equipment/${id}`));
 
-// Payments
-export const initiatePayment = async (paymentData) => {
-  try {
-    const response = await api.post('/payments', paymentData);
-    return response.data;
-  } catch (error) {
-    console.error('Error initiating payment:', error);
-    throw error;
-  }
-};
-
-export const getPaymentStatus = async (id) => {
-  try {
-    const response = await api.get(`/payments/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching payment status:', error);
-    throw error;
-  }
-};
-
-// Authentication and User Management
+// Users
+export const createUser = async (userData) => handleApiResponse(api.post('/users', userData));
+export const getUser = async (id) => handleApiResponse(api.get(`/users/${id}`));
+export const getUsers = async () => handleApiResponse(api.get('/users'));
+export const updateUser = async (id, userData) => handleApiResponse(api.put(`/users/${id}`, userData));
+export const deleteUser = async (id) => handleApiResponse(api.delete(`/users/${id}`));
 export const loginUser = async (credentials) => {
-  try {
-    const formData = new URLSearchParams();
-    formData.append('username', credentials.username);
-    formData.append('password', credentials.password);
+  const formData = new URLSearchParams();
+  formData.append('username', credentials.username);
+  formData.append('password', credentials.password);
 
-    const response = await api.post('/users/login', formData, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
+  const response = await api.post('/users/login', formData, {
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  });
 
-    // Store token and role in local storage
-    const token = response.data.access_token;
-    localStorage.setItem('token', token);
+  const token = response.data.access_token;
+  localStorage.setItem('token', token);
 
-    // Decode JWT to extract role
-    const decodedToken = jwtDecode(token);
-    localStorage.setItem('role', decodedToken.role);
+  const decodedToken = jwtDecode(token);
+  localStorage.setItem('role', decodedToken.role);
 
-    return response.data;
-  } catch (error) {
-    console.error('Login error:', error);
-    throw error;
-  }
+  return response.data;
 };
-
-export const signupUser = async (data) => {
-  try {
-    const response = await api.post('/users/register', data);
-    return response.data;
-  } catch (error) {
-    console.error('Signup error:', error);
-    throw error;
-  }
-};
-
-export const fetchCurrentUser = async () => {
-  try {
-    const response = await api.get('/users/me');
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching current user:', error);
-    throw error;
-  }
-};
-
-export const completeUserProfile = async (data) => {
-  try {
-    const response = await api.put('/users/complete-profile', data);
-    return response.data;
-  } catch (error) {
-    console.error('Error completing user profile:', error);
-    throw error;
-  }
-};
-
-// Services
-export const fetchServices = async () => {
-  try {
-    const response = await api.get('/services');
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching services:', error);
-    throw error;
-  }
-};
-
-export const createService = async (serviceData) => {
-  try {
-    const response = await api.post('/services', serviceData);
-    return response.data;
-  } catch (error) {
-    console.error('Error creating service:', error);
-    throw error;
-  }
-};
-
-export const updateService = async (id, serviceData) => {
-  try {
-    const response = await api.put(`/services/${id}`, serviceData);
-    return response.data;
-  } catch (error) {
-    console.error('Error updating service:', error);
-    throw error;
-  }
-};
-
-export const deleteService = async (id) => {
-  try {
-    const response = await api.delete(`/services/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error('Error deleting service:', error);
-    throw error;
-  }
-};
-
-// Trainers
-export const fetchTrainers = async () => {
-  try {
-    const response = await api.get('/trainers');
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching trainers:', error);
-    throw error;
-  }
-};
-
-export const createTrainer = async (trainerData) => {
-  try {
-    const response = await api.post('/trainers', trainerData);
-    return response.data;
-  } catch (error) {
-    console.error('Error creating trainer:', error);
-    throw error;
-  }
-};
-
-export const updateTrainer = async (id, trainerData) => {
-  try {
-    const response = await api.put(`/trainers/${id}`, trainerData);
-    return response.data;
-  } catch (error) {
-    console.error('Error updating trainer:', error);
-    throw error;
-  }
-};
-
-export const deleteTrainer = async (id) => {
-  try {
-    const response = await api.delete(`/trainers/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error('Error deleting trainer:', error);
-    throw error;
-  }
-};
+export const getCurrentUser = async () => handleApiResponse(api.get('/users/me'));
 
 // Feedback
-export const submitFeedback = async (feedbackData) => {
-  try {
-    const response = await api.post('/feedback', feedbackData);
-    return response.data;
-  } catch (error) {
-    console.error('Error submitting feedback:', error);
-    throw error;
-  }
-};
+export const createFeedback = async (feedbackData) => handleApiResponse(api.post('/feedback', feedbackData));
+export const getFeedback = async (id) => handleApiResponse(api.get(`/feedback/${id}`));
+export const getFeedbacks = async () => handleApiResponse(api.get('/feedback'));
+export const updateFeedback = async (id, feedbackData) => handleApiResponse(api.put(`/feedback/${id}`, feedbackData));
+export const deleteFeedback = async (id) => handleApiResponse(api.delete(`/feedback/${id}`));
 
-export const fetchFeedback = async () => {
-  try {
-    const response = await api.get('/feedback');
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching feedback:', error);
-    throw error;
-  }
-};
+// Reviews
+export const createReview = async (reviewData) => handleApiResponse(api.post('/reviews', reviewData));
+export const getReview = async (id) => handleApiResponse(api.get(`/reviews/${id}`));
+export const getReviews = async () => handleApiResponse(api.get('/reviews'));
+export const updateReview = async (id, reviewData) => handleApiResponse(api.put(`/reviews/${id}`, reviewData));
+export const deleteReview = async (id) => handleApiResponse(api.delete(`/reviews/${id}`));
 
-// Queries
-export const submitQuery = async (queryData) => {
-  try {
-    const response = await api.post('/queries', queryData);
-    return response.data;
-  } catch (error) {
-    console.error('Error submitting query:', error);
-    throw error;
-  }
-};
+// Interactions
+export const createInteraction = async (interactionData) => handleApiResponse(api.post('/interactions', interactionData));
+export const getInteraction = async (id) => handleApiResponse(api.get(`/interactions/${id}`));
+export const getInteractions = async () => handleApiResponse(api.get('/interactions'));
+export const updateInteraction = async (id, interactionData) => handleApiResponse(api.put(`/interactions/${id}`, interactionData));
+export const deleteInteraction = async (id) => handleApiResponse(api.delete(`/interactions/${id}`));
 
-export const fetchQueries = async () => {
-  try {
-    const response = await api.get('/queries');
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching queries:', error);
-    throw error;
-  }
-};
+// Rooms
+export const createRoom = async (roomData) => handleApiResponse(api.post('/rooms', roomData));
+export const getRoom = async (id) => handleApiResponse(api.get(`/rooms/${id}`));
+export const getRooms = async () => handleApiResponse(api.get('/rooms'));
+export const updateRoom = async (id, roomData) => handleApiResponse(api.put(`/rooms/${id}`, roomData));
+export const deleteRoom = async (id) => handleApiResponse(api.delete(`/rooms/${id}`));
+
+// Booking Details
+export const createBookingDetail = async (detailData) => handleApiResponse(api.post('/booking_details', detailData));
+export const getBookingDetail = async (id) => handleApiResponse(api.get(`/booking_details/${id}`));
+export const getBookingDetails = async () => handleApiResponse(api.get('/booking_details'));
+export const updateBookingDetail = async (id, detailData) => handleApiResponse(api.put(`/booking_details/${id}`, detailData));
+export const deleteBookingDetail = async (id) => handleApiResponse(api.delete(`/booking_details/${id}`));
+
+// Bookings
+export const createBooking = async (bookingData) => handleApiResponse(api.post('/bookings', bookingData));
+export const getBooking = async (id) => handleApiResponse(api.get(`/bookings/${id}`));
+export const getBookings = async () => handleApiResponse(api.get('/bookings'));
+
+// Payments
+export const createPayment = async (paymentData) => handleApiResponse(api.post('/payments', paymentData));
+export const getPayment = async (id) => handleApiResponse(api.get(`/payments/${id}`));
+export const getPayments = async () => handleApiResponse(api.get('/payments'));
+export const updatePayment = async (id, paymentData) => handleApiResponse(api.put(`/payments/${id}`, paymentData));
+export const deletePayment = async (id) => handleApiResponse(api.delete(`/payments/${id}`));
+
+// Trainers
+export const createTrainer = async (trainerData) => handleApiResponse(api.post('/trainers', trainerData));
+export const getTrainer = async (id) => handleApiResponse(api.get(`/trainers/${id}`));
+export const getTrainers = async () => handleApiResponse(api.get('/trainers'));
+export const updateTrainer = async (id, trainerData) => handleApiResponse(api.put(`/trainers/${id}`, trainerData));
+export const deleteTrainer = async (id) => handleApiResponse(api.delete(`/trainers/${id}`));
+
+// Services
+export const createService = async (serviceData) => handleApiResponse(api.post('/services', serviceData));
+export const getService = async (id) => handleApiResponse(api.get(`/services/${id}`));
+export const getServices = async () => handleApiResponse(api.get('/services'));
+export const updateService = async (id, serviceData) => handleApiResponse(api.put(`/services/${id}`, serviceData));
+export const deleteService = async (id) => handleApiResponse(api.delete(`/services/${id}`));
