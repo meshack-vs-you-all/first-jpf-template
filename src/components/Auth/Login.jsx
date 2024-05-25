@@ -1,11 +1,12 @@
-import { useState } from 'react';
+// src/components/Auth/Login.jsx
+import { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import useRoleBasedRedirect from '../../utils/useRoleBasedRedirect';
 
-const Login = ({ setIsAuthenticated, setUserRole, setProfileComplete }) => {
+const Login = ({ setAuthState }) => {
     const [formData, setFormData] = useState({ username: '', password: '' });
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [error, setError] = useState('');
@@ -19,24 +20,19 @@ const Login = ({ setIsAuthenticated, setUserRole, setProfileComplete }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8000/users/login', formData, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
+            // eslint-disable-next-line no-undef
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/users/login`, formData);
             const token = response.data.access_token;
             localStorage.setItem('token', token);
 
             const decodedToken = jwtDecode(token);
             const userRole = decodedToken.role;
-            const profileComplete = decodedToken.profileComplete;
+            const profileComplete = decodedToken.profile_complete;
 
-            // Update state and redirect based on user details
-            setIsAuthenticated(true);
-            setUserRole(userRole);
-            setProfileComplete(profileComplete);
-            roleBasedRedirect(userRole, profileComplete);
-
+            // Update state and log for debugging
+            console.log("Decoded Token:", decodedToken);
+            setAuthState(true, userRole, profileComplete);
+            roleBasedRedirect(userRole, profileComplete); // Redirect based on role and profile completion
         } catch (error) {
             console.error('Login error:', error);
             setError('Invalid username or password');

@@ -1,17 +1,17 @@
 import { useState } from 'react';
-import { HashLink as Link } from 'react-router-hash-link';
-import { navLinks } from "../../constants";
+import { HashLink as Link } from 'react-router-hash-link'; // Import HashLink for smooth scrolling
+import { navLinks } from "../../constants"; // Import navigation links
 
 const Nav = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState(null);
+  const [isOpen, setIsOpen] = useState(false); // State to manage mobile menu open/close
+  const [activeLink, setActiveLink] = useState(null); // State to manage the active link
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    setIsOpen(!isOpen); // Toggle the mobile menu open/close state
   };
 
   const closeMenu = () => {
-    setIsOpen(false);
+    setIsOpen(false); // Close the mobile menu
   };
 
   return (
@@ -37,9 +37,11 @@ const Nav = () => {
       {/* Navigation Bar */}
       <header className="bg-light shadow">
         <nav className="flex justify-between items-center w-full px-5 py-3">
+          {/* Logo */}
           <Link to='/'>
             <img src="/src/assets/images/jpf_logo.jpg" alt="logo" className="h-16 w-auto" />
           </Link>
+          {/* Desktop Navigation */}
           <ul className="hidden lg:flex flex-1 justify-center items-center gap-8">
             {navLinks.map((item) => (
               <li key={item.label}>
@@ -54,9 +56,11 @@ const Nav = () => {
               </li>
             ))}
           </ul>
+          {/* Learn More Link */}
           <div className='hidden lg:flex text-lg font-medium font-montserrat mr-24'>
             <Link smooth to='/#WhyChooseUs' className="text-gray-800 hover:text-brand-primary active:text-brand-primary">Learn More</Link>
           </div>
+          {/* Mobile Menu Button */}
           <div className="lg:hidden relative">
             <button onClick={toggleMenu} className="appearance-none bg-transparent border-none cursor-pointer p-2">
               <img src="/src/assets/icons/hamburger.svg" alt="Menu" className="w-6 h-6" />

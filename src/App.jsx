@@ -16,49 +16,29 @@ import BookingManagement from './components/Admin/BookingManagement';
 import UserBookings from './components/User/UserBookings';
 import PaymentManagement from './components/Admin/PaymentManagement';
 import LoadingHome from './components/Shared/LoadingHome';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import TrainerDashboard from './components/Trainer/TrainerDashboard';
+import RoleSelection from './components/Auth/RoleSelection'; // Import RoleSelection
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import useAuthCheck from './utils/useAuthCheck';
+import { useState } from 'react';
 
 const App = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [userRole, setUserRole] = useState(null);
-    const [profileComplete, setProfileComplete] = useState(true); // Assume profile is complete by default
-    const [loading, setLoading] = useState(true);
+    const { isAuthenticated, userRole, profileComplete, loading } = useAuthCheck();
+    const [role, setRole] = useState(null); // State to store the selected role
 
-    useEffect(() => {
-        const checkAuth = async () => {
-            const token = localStorage.getItem('token');
-            if (token) {
-                try {
-                    const response = await axios.get('http://localhost:8000/users/me', {
-                        headers: { Authorization: `Bearer ${token}` }
-                    });
-                    console.log('Authentication check successful:', response.data);
-                    setIsAuthenticated(true);
-                    setUserRole(response.data.role);
-                    setProfileComplete(response.data.profileComplete);
-                } catch (error) {
-                    console.error('Error during authentication check:', error);
-                    setIsAuthenticated(false);
-                }
-            } else {
-                console.log('No token found');
-                setIsAuthenticated(false);
-            }
-            setLoading(false);
-        };
+    const [authState, setAuthState] = useState({
+        isAuthenticated: false,
+        userRole: null,
+        profileComplete: false,
+    });
 
-        checkAuth();
-    }, []);
-
-    console.log('isAuthenticated:', isAuthenticated);
-    console.log('userRole:', userRole);
+    const handleAuthChange = (isAuthenticated, userRole, profileComplete) => {
+        setAuthState({ isAuthenticated, userRole, profileComplete });
+    };
 
     if (loading) {
-        return <LoadingHome />;
+        return <LoadingHome />; // Show loading spinner while checking auth status
     }
 
     return (
@@ -68,21 +48,22 @@ const App = () => {
             <main>
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <Login setIsAuthenticated={setIsAuthenticated} setUserRole={setUserRole} setProfileComplete={setProfileComplete} />} />
-                    <Route path="/signup" element={isAuthenticated ? <Navigate to="/" /> : <Signup />} />
-                    <Route path="/complete-profile" element={isAuthenticated && !profileComplete ? <CompleteProfile /> : <Navigate to="/" />} />
-                    <Route path="/admin-dashboard" element={isAuthenticated && userRole === 'admin' ? <AdminDashboard /> : <Navigate to="/login" />} />
-                    <Route path="/user-dashboard" element={isAuthenticated && userRole === 'user' ? <UserDashboard /> : <Navigate to="/login" />} />
-                    <Route path="/trainer-dashboard" element={isAuthenticated && userRole === 'trainer' ? <TrainerDashboard /> : <Navigate to="/login" />} />
-                    <Route path="/profile" element={isAuthenticated ? <Profile /> : <Navigate to="/login" />} />
-                    <Route path="/feedback" element={isAuthenticated ? <Feedback /> : <Navigate to="/login" />} />
-                    <Route path="/view-feedback" element={isAuthenticated && userRole === 'admin' ? <ViewFeedback /> : <Navigate to="/login" />} />
-                    <Route path="/queries" element={isAuthenticated ? <Queries /> : <Navigate to="/login" />} />
-                    <Route path="/view-queries" element={isAuthenticated && userRole === 'admin' ? <ViewQueries /> : <Navigate to="/login" />} />
-                    <Route path="/service-management" element={isAuthenticated && userRole === 'admin' ? <ServiceManagement /> : <Navigate to="/login" />} />
-                    <Route path="/booking-management" element={isAuthenticated && userRole === 'admin' ? <BookingManagement /> : <Navigate to="/login" />} />
-                    <Route path="/user-bookings" element={isAuthenticated ? <UserBookings /> : <Navigate to="/login" />} />
-                    <Route path="/payment-management" element={isAuthenticated && userRole === 'admin' ? <PaymentManagement /> : <Navigate to="/login" />} />
+                    <Route path="/login" element={authState.isAuthenticated ? <Navigate to="/" /> : <Login setAuthState={handleAuthChange} />} />
+                    <Route path="/signup" element={authState.isAuthenticated ? <Navigate to="/" /> : <Signup role={role} />} /> {/* Pass role to Signup */}
+                    <Route path="/select-role" element={<RoleSelection setRole={setRole} />} /> {/* Role Selection Route */}
+                    <Route path="/complete-profile" element={authState.isAuthenticated && !authState.profileComplete ? <CompleteProfile /> : <Navigate to="/" />} />
+                    <Route path="/admin-dashboard" element={authState.isAuthenticated && authState.userRole === 'admin' ? <AdminDashboard /> : <Navigate to="/login" />} />
+                    <Route path="/user-dashboard" element={authState.isAuthenticated && authState.userRole === 'user' ? <UserDashboard /> : <Navigate to="/login" />} />
+                    <Route path="/trainer-dashboard" element={authState.isAuthenticated && authState.userRole === 'trainer' ? <TrainerDashboard /> : <Navigate to="/login" />} />
+                    <Route path="/profile" element={authState.isAuthenticated ? <Profile /> : <Navigate to="/login" />} />
+                    <Route path="/feedback" element={authState.isAuthenticated ? <Feedback /> : <Navigate to="/login" />} />
+                    <Route path="/view-feedback" element={authState.isAuthenticated && authState.userRole === 'admin' ? <ViewFeedback /> : <Navigate to="/login" />} />
+                    <Route path="/queries" element={authState.isAuthenticated ? <Queries /> : <Navigate to="/login" />} />
+                    <Route path="/view-queries" element={authState.isAuthenticated && authState.userRole === 'admin' ? <ViewQueries /> : <Navigate to="/login" />} />
+                    <Route path="/service-management" element={authState.isAuthenticated && authState.userRole === 'admin' ? <ServiceManagement /> : <Navigate to="/login" />} />
+                    <Route path="/booking-management" element={authState.isAuthenticated && authState.userRole === 'admin' ? <BookingManagement /> : <Navigate to="/login" />} />
+                    <Route path="/user-bookings" element={authState.isAuthenticated ? <UserBookings /> : <Navigate to="/login" />} />
+                    <Route path="/payment-management" element={authState.isAuthenticated && authState.userRole === 'admin' ? <PaymentManagement /> : <Navigate to="/login" />} />
                 </Routes>
             </main>
         </Router>

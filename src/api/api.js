@@ -1,35 +1,11 @@
-import axios from 'axios';
-import {jwtDecode} from 'jwt-decode';
-import { useNavigate } from 'react-router-dom';
-import useRoleBasedRedirect from '../utils/useRoleBasedRedirect';
-import useAuth from '../utils/useAuth';
-import useAuthCheck from '../utils/useAuthCheck'; 
-
-
-const useRoleBasedRedirect = (userRole, profileComplete) => {
-  const navigate = useNavigate();
-  if (userRole === 'admin' && profileComplete) {
-    navigate('/admin-dashboard');
-  } else if (userRole === 'trainer' && profileComplete) {
-    navigate('/trainer-dashboard');
-  } else {
-    navigate('/user-dashboard');
-  }
-};
-
-const useAuth = () => {
-  const navigate = useNavigate();
-  const token = localStorage.getItem('token');
-  if (!token) {
-    navigate('/login');
-  }
-};
-
-
+import axios from 'axios'; // Importing axios for making HTTP requests
+import jwtDecode from 'jwt-decode'; // Importing jwt-decode for decoding JWT tokens
 
 // Use environment variable or default to localhost with /api prefix
+// eslint-disable-next-line no-undef
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
 
+// Create axios instance with base URL and credentials
 const api = axios.create({
   baseURL: API_URL,
   withCredentials: true,
@@ -37,51 +13,51 @@ const api = axios.create({
 
 // Interceptor to include JWT token in headers
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token'); // Get token from localStorage
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+    config.headers.Authorization = `Bearer ${token}`; // Add token to headers
   }
   return config;
 }, (error) => {
-  return Promise.reject(error);
+  return Promise.reject(error); // Handle request error
 });
 
 // Generic function to handle API requests
 const handleApiResponse = async (apiCall) => {
   try {
-    const response = await apiCall;
-    return response.data;
+    const response = await apiCall; // Await the API call
+    return response.data; // Return response data
   } catch (error) {
-    console.error('API error:', error);
-    throw error;
+    console.error('API error:', error); // Log any errors
+    throw error; // Rethrow the error
   }
 };
 
-// Audits
-export const createAudit = async (auditData) => handleApiResponse(api.post('/audits', auditData));
+// Audits endpoints
+export const createAudit = async (auditData) => handleApiResponse(api.post('/audits', auditData, { headers: { 'Content-Type': 'application/json' } }));
 export const getAudit = async (id) => handleApiResponse(api.get(`/audits/${id}`));
 export const getAudits = async () => handleApiResponse(api.get('/audits'));
 export const deleteAudit = async (id) => handleApiResponse(api.delete(`/audits/${id}`));
 
-// User Queries
-export const createUserQuery = async (queryData) => handleApiResponse(api.post('/user_queries', queryData));
+// User Queries endpoints
+export const createUserQuery = async (queryData) => handleApiResponse(api.post('/user_queries', queryData, { headers: { 'Content-Type': 'application/json' } }));
 export const getUserQuery = async (id) => handleApiResponse(api.get(`/user_queries/${id}`));
 export const getUserQueries = async () => handleApiResponse(api.get('/user_queries'));
-export const updateUserQuery = async (id, queryData) => handleApiResponse(api.put(`/user_queries/${id}`, queryData));
+export const updateUserQuery = async (id, queryData) => handleApiResponse(api.put(`/user_queries/${id}`, queryData, { headers: { 'Content-Type': 'application/json' } }));
 export const deleteUserQuery = async (id) => handleApiResponse(api.delete(`/user_queries/${id}`));
 
-// Equipment
-export const createEquipment = async (equipmentData) => handleApiResponse(api.post('/equipment', equipmentData));
+// Equipment endpoints
+export const createEquipment = async (equipmentData) => handleApiResponse(api.post('/equipment', equipmentData, { headers: { 'Content-Type': 'application/json' } }));
 export const getEquipment = async (id) => handleApiResponse(api.get(`/equipment/${id}`));
 export const getEquipments = async () => handleApiResponse(api.get('/equipment'));
-export const updateEquipment = async (id, equipmentData) => handleApiResponse(api.put(`/equipment/${id}`, equipmentData));
+export const updateEquipment = async (id, equipmentData) => handleApiResponse(api.put(`/equipment/${id}`, equipmentData, { headers: { 'Content-Type': 'application/json' } }));
 export const deleteEquipment = async (id) => handleApiResponse(api.delete(`/equipment/${id}`));
 
-// Users
-export const createUser = async (userData) => handleApiResponse(api.post('/users', userData));
+// Users endpoints
+export const createUser = async (userData) => handleApiResponse(api.post('/users/register', userData, { headers: { 'Content-Type': 'application/json' } }));
 export const getUser = async (id) => handleApiResponse(api.get(`/users/${id}`));
 export const getUsers = async () => handleApiResponse(api.get('/users'));
-export const updateUser = async (id, userData) => handleApiResponse(api.put(`/users/${id}`, userData));
+export const updateUser = async (id, userData) => handleApiResponse(api.put(`/users/${id}`, userData, { headers: { 'Content-Type': 'application/json' } }));
 export const deleteUser = async (id) => handleApiResponse(api.delete(`/users/${id}`));
 export const loginUser = async (credentials) => {
   const formData = new URLSearchParams();
@@ -102,63 +78,55 @@ export const loginUser = async (credentials) => {
 };
 export const getCurrentUser = async () => handleApiResponse(api.get('/users/me'));
 
-// Feedback
-export const createFeedback = async (feedbackData) => handleApiResponse(api.post('/feedback', feedbackData));
+// Feedback endpoints
+export const createFeedback = async (feedbackData) => handleApiResponse(api.post('/feedback', feedbackData, { headers: { 'Content-Type': 'application/json' } }));
 export const getFeedback = async (id) => handleApiResponse(api.get(`/feedback/${id}`));
 export const getFeedbacks = async () => handleApiResponse(api.get('/feedback'));
-export const updateFeedback = async (id, feedbackData) => handleApiResponse(api.put(`/feedback/${id}`, feedbackData));
+export const updateFeedback = async (id, feedbackData) => handleApiResponse(api.put(`/feedback/${id}`, feedbackData, { headers: { 'Content-Type': 'application/json' } }));
 export const deleteFeedback = async (id) => handleApiResponse(api.delete(`/feedback/${id}`));
 
-// Reviews
-export const createReview = async (reviewData) => handleApiResponse(api.post('/reviews', reviewData));
+// Reviews endpoints
+export const createReview = async (reviewData) => handleApiResponse(api.post('/reviews', reviewData, { headers: { 'Content-Type': 'application/json' } }));
 export const getReview = async (id) => handleApiResponse(api.get(`/reviews/${id}`));
 export const getReviews = async () => handleApiResponse(api.get('/reviews'));
-export const updateReview = async (id, reviewData) => handleApiResponse(api.put(`/reviews/${id}`, reviewData));
+export const updateReview = async (id, reviewData) => handleApiResponse(api.put(`/reviews/${id}`, reviewData, { headers: { 'Content-Type': 'application/json' } }));
 export const deleteReview = async (id) => handleApiResponse(api.delete(`/reviews/${id}`));
 
-// Interactions
-export const createInteraction = async (interactionData) => handleApiResponse(api.post('/interactions', interactionData));
+// Interactions endpoints
+export const createInteraction = async (interactionData) => handleApiResponse(api.post('/interactions', interactionData, { headers: { 'Content-Type': 'application/json' } }));
 export const getInteraction = async (id) => handleApiResponse(api.get(`/interactions/${id}`));
 export const getInteractions = async () => handleApiResponse(api.get('/interactions'));
-export const updateInteraction = async (id, interactionData) => handleApiResponse(api.put(`/interactions/${id}`, interactionData));
+export const updateInteraction = async (id, interactionData) => handleApiResponse(api.put(`/interactions/${id}`, interactionData, { headers: { 'Content-Type': 'application/json' } }));
 export const deleteInteraction = async (id) => handleApiResponse(api.delete(`/interactions/${id}`));
 
-// Rooms
-export const createRoom = async (roomData) => handleApiResponse(api.post('/rooms', roomData));
+// Rooms endpoints
+export const createRoom = async (roomData) => handleApiResponse(api.post('/rooms', roomData, { headers: { 'Content-Type': 'application/json' } }));
 export const getRoom = async (id) => handleApiResponse(api.get(`/rooms/${id}`));
 export const getRooms = async () => handleApiResponse(api.get('/rooms'));
-export const updateRoom = async (id, roomData) => handleApiResponse(api.put(`/rooms/${id}`, roomData));
+export const updateRoom = async (id, roomData) => handleApiResponse(api.put(`/rooms/${id}`, roomData, { headers: { 'Content-Type': 'application/json' } }));
 export const deleteRoom = async (id) => handleApiResponse(api.delete(`/rooms/${id}`));
 
-// Booking Details
-export const createBookingDetail = async (detailData) => handleApiResponse(api.post('/booking_details', detailData));
+// Booking Details endpoints
+export const createBookingDetail = async (detailData) => handleApiResponse(api.post('/booking_details', detailData, { headers: { 'Content-Type': 'application/json' } }));
 export const getBookingDetail = async (id) => handleApiResponse(api.get(`/booking_details/${id}`));
 export const getBookingDetails = async () => handleApiResponse(api.get('/booking_details'));
-export const updateBookingDetail = async (id, detailData) => handleApiResponse(api.put(`/booking_details/${id}`, detailData));
+export const updateBookingDetail = async (id, detailData) => handleApiResponse(api.put(`/booking_details/${id}`, detailData, { headers: { 'Content-Type': 'application/json' } }));
 export const deleteBookingDetail = async (id) => handleApiResponse(api.delete(`/booking_details/${id}`));
 
-// Bookings
-export const createBooking = async (bookingData) => handleApiResponse(api.post('/bookings', bookingData));
+// Bookings endpoints
+export const createBooking = async (bookingData) => handleApiResponse(api.post('/bookings', bookingData, { headers: { 'Content-Type': 'application/json' } }));
 export const getBooking = async (id) => handleApiResponse(api.get(`/bookings/${id}`));
 export const getBookings = async () => handleApiResponse(api.get('/bookings'));
 
-// Payments
-export const createPayment = async (paymentData) => handleApiResponse(api.post('/payments', paymentData));
+// Payments endpoints
+export const createPayment = async (paymentData) => handleApiResponse(api.post('/payments', paymentData, { headers: { 'Content-Type': 'application/json' } }));
 export const getPayment = async (id) => handleApiResponse(api.get(`/payments/${id}`));
 export const getPayments = async () => handleApiResponse(api.get('/payments'));
-export const updatePayment = async (id, paymentData) => handleApiResponse(api.put(`/payments/${id}`, paymentData));
+export const updatePayment = async (id, paymentData) => handleApiResponse(api.put(`/payments/${id}`, paymentData, { headers: { 'Content-Type': 'application/json' } }));
 export const deletePayment = async (id) => handleApiResponse(api.delete(`/payments/${id}`));
 
-// Trainers
-export const createTrainer = async (trainerData) => handleApiResponse(api.post('/trainers', trainerData));
+// Trainers endpoints
+export const createTrainer = async (trainerData) => handleApiResponse(api.post('/trainers', trainerData, { headers: { 'Content-Type': 'application/json' } }));
 export const getTrainer = async (id) => handleApiResponse(api.get(`/trainers/${id}`));
 export const getTrainers = async () => handleApiResponse(api.get('/trainers'));
-export const updateTrainer = async (id, trainerData) => handleApiResponse(api.put(`/trainers/${id}`, trainerData));
-export const deleteTrainer = async (id) => handleApiResponse(api.delete(`/trainers/${id}`));
-
-// Services
-export const createService = async (serviceData) => handleApiResponse(api.post('/services', serviceData));
-export const getService = async (id) => handleApiResponse(api.get(`/services/${id}`));
-export const getServices = async () => handleApiResponse(api.get('/services'));
-export const updateService = async (id, serviceData) => handleApiResponse(api.put(`/services/${id}`, serviceData));
-export const deleteService = async (id) => handleApiResponse(api.delete(`/services/${id}`));
+export const updateTrainer = async (id, trainerData) => handleApiResponse(api.put(`/trainers/${id}`, trainerData, { headers: { 'Content-Type': 'application/json'} }));
