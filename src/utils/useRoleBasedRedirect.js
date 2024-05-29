@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom';  // Importing the useNavigate hook from react-router-dom for navigation
-import {jwtDecode} from 'jwt-decode';  // Importing jwtDecode to decode JWT tokens
+import { useNavigate } from 'react-router-dom'; // Importing the useNavigate hook from react-router-dom for navigation
+import jwtDecode from 'jwt-decode'; // Importing jwtDecode to decode JWT tokens
 
 const useRoleBasedRedirect = () => {
     // Initializing navigate to be used for programmatic navigation
@@ -10,6 +10,7 @@ const useRoleBasedRedirect = () => {
         try {
             // Attempting to decode the provided JWT token
             const decodedToken = jwtDecode(token);
+
             // Extracting user role and profile completion status from the decoded token
             const userRole = decodedToken.role;
             const profileComplete = decodedToken.profile_complete;
@@ -29,9 +30,13 @@ const useRoleBasedRedirect = () => {
                         // Navigate to the trainer dashboard if the user is a trainer
                         navigate('/trainer-dashboard');
                         break;
-                    default:
-                        // Navigate to the user dashboard if the user is neither an admin nor a trainer
+                    case 'user':
+                        // Navigate to the user dashboard if the user is a regular user
                         navigate('/user-dashboard');
+                        break;
+                    default:
+                        // Navigate to the home page if the user's role is not recognized
+                        navigate('/');
                         break;
                 }
             }
